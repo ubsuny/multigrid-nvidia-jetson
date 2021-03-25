@@ -1,9 +1,6 @@
-all: helmholtz ex11
+all: helmholtz
 
 helmholtz: helmholtz.o
-	${CLINKER} -o $@ $^ ${PETSC_LIB}
-
-ex11: ex11.o
 	${CLINKER} -o $@ $^ ${PETSC_LIB}
 
 
