@@ -25,7 +25,7 @@ const char *CoeffTypes[NUM_COEFF+2] = {"constant", "step", "checkerboard", "anis
 */
 typedef struct {
   /* Domain and mesh definition */
-  PetscBool spectral; /* Look at the spectrum along planes in the solution */
+  //PetscBool spectral; /* Look at the spectrum along planes in the solution */
   PetscBool shear;    /* Shear the domain */
   PetscBool adjoint;  /* Solve the adjoint problem */
   /* Problem definition */
@@ -43,21 +43,22 @@ static PetscErrorCode zero(PetscInt dim, PetscReal time, const PetscReal x[], Pe
 }
 
 /* Compute integral of (residual of solution)*(adjoint solution - projection of adjoint solution) */
-static void obj_error_u(PetscInt dim, PetscInt Nf, PetscInt NfAux,
+/*static void obj_error_u(PetscInt dim, PetscInt Nf, PetscInt NfAux,
                         const PetscInt uOff[], const PetscInt uOff_x[], const PetscScalar u[], const PetscScalar u_t[], const PetscScalar u_x[],
                         const PetscInt aOff[], const PetscInt aOff_x[], const PetscScalar a[], const PetscScalar a_t[], const PetscScalar a_x[],
                         PetscReal t, const PetscReal x[], PetscInt numConstants, const PetscScalar constants[], PetscScalar obj[])
 {
   obj[0] = a[aOff[0]]*(u[0] - a[aOff[1]]);
-}
+}*/
 
 /*For Adjoint Problem*/
-static void f0_unity_u(PetscInt dim, PetscInt Nf, PetscInt NfAux,
-                       const PetscInt uOff[], const PetscInt uOff_x[], const PetscScalar u[], const PetscScalar u_t[], const PetscScalar u_x[],
-                       const PetscInt aOff[], const PetscInt aOff_x[], const PetscScalar a[], const PetscScalar a_t[], const PetscScalar a_x[],
-                       PetscReal t, const PetscReal x[], PetscInt numConstants, const PetscScalar constants[], PetscScalar f0[])
+static void g0_uu(PetscInt dim, PetscInt Nf, PetscInt NfAux,
+                   const PetscInt uOff[], const PetscInt uOff_x[], const PetscScalar u[], const PetscScalar u_t[], const PetscScalar u_x[],
+                   const PetscInt aOff[], const PetscInt aOff_x[], const PetscScalar a[], const PetscScalar a_t[], const PetscScalar a_x[],
+                   PetscReal t, PetscReal u_tShift, const PetscReal x[], PetscInt numConstants, const PetscScalar constants[], PetscScalar g0[])
 {
-  f0[0] = 1.0;
+  PetscInt d;
+  for (d = 0; d < dim; ++d) g0[d*dim+d] = 1.0;
 }
 
 static void g3_uu(PetscInt dim, PetscInt Nf, PetscInt NfAux,
@@ -66,15 +67,7 @@ static void g3_uu(PetscInt dim, PetscInt Nf, PetscInt NfAux,
                   PetscReal t, PetscReal u_tShift, const PetscReal x[], PetscInt numConstants, const PetscScalar constants[], PetscScalar g3[])
 {
   PetscInt d;
-  for (d = 0; d < dim; ++d) g3[d*dim+d] = a[0];
-}
-
-static void f0_identityaux_u(PetscInt dim, PetscInt Nf, PetscInt NfAux,
-                             const PetscInt uOff[], const PetscInt uOff_x[], const PetscScalar u[], const PetscScalar u_t[], const PetscScalar u_x[],
-                             const PetscInt aOff[], const PetscInt aOff_x[], const PetscScalar a[], const PetscScalar a_t[], const PetscScalar a_x[],
-                             PetscReal t, const PetscReal x[], PetscInt numConstants, const PetscScalar constants[], PetscScalar f0[])
-{
-  f0[0] = a[0];
+  for (d = 0; d < dim; ++d) g3[d*dim+d] = -1.0;
 }
 
 /*For Primal Problem*/
@@ -124,8 +117,9 @@ static void f1_u(PetscInt dim, PetscInt Nf, PetscInt NfAux,
 static PetscErrorCode ProcessOptions(DM dm, AppCtx *options)
 {
   MPI_Comm       comm;
-  PetscBool      rand = PETSC_FALSE;
-  PetscInt       dim, coeff;
+  //PetscBool      rand = PETSC_FALSE;
+  //PetscInt       coeff;
+  PetscInt	 dim;
   PetscErrorCode ierr;
 
   PetscFunctionBeginUser;
@@ -181,13 +175,13 @@ static PetscErrorCode SetupPrimalProblem(DM dm, AppCtx *user)
   PetscFunctionBeginUser;
   ierr = DMGetDS(dm, &ds);CHKERRQ(ierr);
   ierr = PetscDSSetResidual(ds, 0, f0_trig_u, f1_u);CHKERRQ(ierr);
-  ierr = PetscDSSetJacobian(ds, 0, 0, NULL, NULL, NULL, g3_uu);CHKERRQ(ierr);
+  ierr = PetscDSSetJacobian(ds, 0, 0, g0_uu, NULL, NULL, g3_uu);CHKERRQ(ierr);
   ierr = PetscDSSetExactSolution(ds, 0, trig_u, user);CHKERRQ(ierr);
   ierr = DMAddBoundary(dm, DM_BC_ESSENTIAL, "wall", "marker", 0, 0, NULL, (void (*)(void)) trig_u, NULL, 1, &id, user);CHKERRQ(ierr);
   PetscFunctionReturn(0);
 }
 
-static PetscErrorCode SetupAdjointProblem(DM dm, AppCtx *user)
+/*static PetscErrorCode SetupAdjointProblem(DM dm, AppCtx *user)
 {
   PetscDS        prob;
   const PetscInt id = 1;
@@ -200,7 +194,7 @@ static PetscErrorCode SetupAdjointProblem(DM dm, AppCtx *user)
   ierr = PetscDSSetObjective(prob, 0, obj_error_u);CHKERRQ(ierr);
   ierr = DMAddBoundary(dm, DM_BC_ESSENTIAL, "wall", "marker", 0, 0, NULL, (void (*)(void)) zero, NULL, 1, &id, user);CHKERRQ(ierr);
   PetscFunctionReturn(0);
-}
+}*/
 
 static PetscErrorCode SetupErrorProblem(DM dm, AppCtx *user)
 {
@@ -215,7 +209,7 @@ static PetscErrorCode SetupErrorProblem(DM dm, AppCtx *user)
 
 static PetscErrorCode SetupDiscretization(DM dm, const char name[], PetscErrorCode (*setup)(DM, AppCtx *), AppCtx *user)
 {
-  DM             cdm = dm;
+  //DM             cdm = dm;
   PetscFE        fe;
   DMPolytopeType ct;
   PetscBool      simplex;
