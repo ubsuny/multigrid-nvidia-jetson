@@ -7,10 +7,9 @@ and coarse space adaptivity.\n\n\n";
 /*
    The model problem:
       Solve Helmholtz equation on the unit square: (0,1) x (0,1)
-          -delta u + sigma1*u = f,
+          -delta u + u = f,
            where delta = Laplace operator
       Dirichlet b.c.'s on all sides
-      Use the 2-D, five-point finite difference stencil.
 
 */
 
@@ -34,6 +33,7 @@ typedef struct {
   //PetscInt  div;      /* Number of divisions */
   //PetscInt  k;        /* Parameter for checkerboard coefficient */
   //PetscInt *kgrid;    /* Random parameter grid */
+  PetscInt	c; /*Random Constant*/
 } AppCtx;
 
 static PetscErrorCode zero(PetscInt dim, PetscReal time, const PetscReal x[], PetscInt Nc, PetscScalar *u, void *ctx)
@@ -111,7 +111,8 @@ static void f1_u(PetscInt dim, PetscInt Nf, PetscInt NfAux,
                  PetscReal t, const PetscReal x[], PetscInt numConstants, const PetscScalar constants[], PetscScalar f1[])
 {
   PetscInt d;
-  for (d = 0; d < dim; ++d) f1[d] = u_x[d];
+  //for (d = 0; d < dim; ++d) f1[d] = u_x[d];
+  for (d = 0; d < dim; ++d) f1[d] = 0.0;
 }
 
 static PetscErrorCode ProcessOptions(DM dm, AppCtx *options)
@@ -125,8 +126,10 @@ static PetscErrorCode ProcessOptions(DM dm, AppCtx *options)
   PetscFunctionBeginUser;
   ierr = PetscObjectGetComm((PetscObject) dm, &comm);CHKERRQ(ierr);
   ierr = DMGetDimension(dm, &dim);CHKERRQ(ierr);
+  options->c = 1;
   ierr = PetscOptionsBegin(comm, "", "Helmholtz Problem Options", "DMPLEX");CHKERRQ(ierr);
   ierr = PetscOptionsEnd();
+
 
   PetscFunctionReturn(0);
 }
@@ -178,34 +181,14 @@ static PetscErrorCode SetupPrimalProblem(DM dm, AppCtx *user)
   ierr = PetscDSSetJacobian(ds, 0, 0, g0_uu, NULL, NULL, g3_uu);CHKERRQ(ierr);
   ierr = PetscDSSetExactSolution(ds, 0, trig_u, user);CHKERRQ(ierr);
   ierr = DMAddBoundary(dm, DM_BC_ESSENTIAL, "wall", "marker", 0, 0, NULL, (void (*)(void)) trig_u, NULL, 1, &id, user);CHKERRQ(ierr);
+  {
+	PetscScalar constants[2];
+
+	constants[0] = user->c;
+	ierr = PetscDSSetConstants(ds, 2, constants);CHKERRQ(ierr);
+  }
   PetscFunctionReturn(0);
 }
-
-/*static PetscErrorCode SetupAdjointProblem(DM dm, AppCtx *user)
-{
-  PetscDS        prob;
-  const PetscInt id = 1;
-  PetscErrorCode ierr;
-
-  PetscFunctionBeginUser;
-  ierr = DMGetDS(dm, &prob);CHKERRQ(ierr);
-  ierr = PetscDSSetResidual(prob, 0, f0_unity_u, f1_u);CHKERRQ(ierr);
-  ierr = PetscDSSetJacobian(prob, 0, 0, NULL, NULL, NULL, g3_uu);CHKERRQ(ierr);
-  ierr = PetscDSSetObjective(prob, 0, obj_error_u);CHKERRQ(ierr);
-  ierr = DMAddBoundary(dm, DM_BC_ESSENTIAL, "wall", "marker", 0, 0, NULL, (void (*)(void)) zero, NULL, 1, &id, user);CHKERRQ(ierr);
-  PetscFunctionReturn(0);
-}*/
-
-static PetscErrorCode SetupErrorProblem(DM dm, AppCtx *user)
-{
-  PetscDS        prob;
-  PetscErrorCode ierr;
-
-  PetscFunctionBeginUser;
-  ierr = DMGetDS(dm, &prob);CHKERRQ(ierr);
-  PetscFunctionReturn(0);
-}
-
 
 static PetscErrorCode SetupDiscretization(DM dm, const char name[], PetscErrorCode (*setup)(DM, AppCtx *), AppCtx *user)
 {
@@ -233,108 +216,6 @@ static PetscErrorCode SetupDiscretization(DM dm, const char name[], PetscErrorCo
   ierr = PetscFEDestroy(&fe);CHKERRQ(ierr);
   PetscFunctionReturn(0);
 }
-
-/*static PetscErrorCode ComputeSpectral(DM dm, Vec u, PetscInt numPlanes, const PetscInt planeDir[], const PetscReal planeCoord[], AppCtx *user)
-{
-  MPI_Comm           comm;
-  PetscSection       coordSection, section;
-  Vec                coordinates, uloc;
-  const PetscScalar *coords, *array;
-  PetscInt           p;
-  PetscMPIInt        size, rank;
-  PetscErrorCode     ierr;
-
-  PetscFunctionBeginUser;
-  ierr = PetscObjectGetComm((PetscObject) dm, &comm);CHKERRQ(ierr);
-  ierr = MPI_Comm_size(comm, &size);CHKERRMPI(ierr);
-  ierr = MPI_Comm_rank(comm, &rank);CHKERRMPI(ierr);
-  ierr = DMGetLocalVector(dm, &uloc);CHKERRQ(ierr);
-  ierr = DMGlobalToLocalBegin(dm, u, INSERT_VALUES, uloc);CHKERRQ(ierr);
-  ierr = DMGlobalToLocalEnd(dm, u, INSERT_VALUES, uloc);CHKERRQ(ierr);
-  ierr = DMPlexInsertBoundaryValues(dm, PETSC_TRUE, uloc, 0.0, NULL, NULL, NULL);CHKERRQ(ierr);
-  ierr = VecViewFromOptions(uloc, NULL, "-sol_view");CHKERRQ(ierr);
-  ierr = DMGetLocalSection(dm, &section);CHKERRQ(ierr);
-  ierr = VecGetArrayRead(uloc, &array);CHKERRQ(ierr);
-  ierr = DMGetCoordinatesLocal(dm, &coordinates);CHKERRQ(ierr);
-  ierr = DMGetCoordinateSection(dm, &coordSection);CHKERRQ(ierr);
-  ierr = VecGetArrayRead(coordinates, &coords);CHKERRQ(ierr);
-  for (p = 0; p < numPlanes; ++p) {
-    DMLabel         label;
-    char            name[PETSC_MAX_PATH_LEN];
-    Mat             F;
-    Vec             x, y;
-    IS              stratum;
-    PetscReal      *ray, *gray;
-    PetscScalar    *rvals, *svals, *gsvals;
-    PetscInt       *perm, *nperm;
-    PetscInt        n, N, i, j, off, offu;
-    const PetscInt *points;
-
-    ierr = PetscSNPrintf(name, PETSC_MAX_PATH_LEN, "spectral_plane_%D", p);CHKERRQ(ierr);
-    ierr = DMGetLabel(dm, name, &label);CHKERRQ(ierr);
-    ierr = DMLabelGetStratumIS(label, 1, &stratum);CHKERRQ(ierr);
-    ierr = ISGetLocalSize(stratum, &n);CHKERRQ(ierr);
-    ierr = ISGetIndices(stratum, &points);CHKERRQ(ierr);
-    ierr = PetscMalloc2(n, &ray, n, &svals);CHKERRQ(ierr);
-    for (i = 0; i < n; ++i) {
-      ierr = PetscSectionGetOffset(coordSection, points[i], &off);CHKERRQ(ierr);
-      ierr = PetscSectionGetOffset(section, points[i], &offu);CHKERRQ(ierr);
-      ray[i]   = PetscRealPart(coords[off+((planeDir[p]+1)%2)]);
-      svals[i] = array[offu];
-    }
-    if (size > 1) {
-      PetscMPIInt *cnt, *displs, p;
-
-      ierr = PetscCalloc2(size, &cnt, size, &displs);CHKERRQ(ierr);
-      ierr = MPI_Gather(&n, 1, MPIU_INT, cnt, 1, MPIU_INT, 0, comm);CHKERRMPI(ierr);
-      for (p = 1; p < size; ++p) displs[p] = displs[p-1] + cnt[p-1];
-      N = displs[size-1] + cnt[size-1];
-      ierr = PetscMalloc2(N, &gray, N, &gsvals);CHKERRQ(ierr);
-      ierr = MPI_Gatherv(ray, n, MPIU_REAL, gray, cnt, displs, MPIU_REAL, 0, comm);CHKERRMPI(ierr);
-      ierr = MPI_Gatherv(svals, n, MPIU_SCALAR, gsvals, cnt, displs, MPIU_SCALAR, 0, comm);CHKERRMPI(ierr);
-      ierr = PetscFree2(cnt, displs);CHKERRQ(ierr);
-    } else {
-      N      = n;
-      gray   = ray;
-      gsvals = svals;
-    }
-    if (!rank) {
-      ierr = PetscMalloc2(N, &perm, N, &nperm);CHKERRQ(ierr);
-      for (i = 0; i < N; ++i) {perm[i] = i;}
-      ierr = PetscSortRealWithPermutation(N, gray, perm);CHKERRQ(ierr);
-      nperm[0] = perm[0];
-      for (i = 1, j = 1; i < N; ++i) {
-        if (PetscAbsReal(gray[perm[i]] - gray[perm[i-1]]) > PETSC_SMALL) nperm[j++] = perm[i];
-      }
-      ierr = MatCreateFFT(PETSC_COMM_SELF, 1, &j, MATFFTW, &F);CHKERRQ(ierr);
-      ierr = MatCreateVecs(F, &x, &y);CHKERRQ(ierr);
-      ierr = PetscObjectSetName((PetscObject) y, name);CHKERRQ(ierr);
-      ierr = VecGetArray(x, &rvals);CHKERRQ(ierr);
-      for (i = 0, j = 0; i < N; ++i) {
-        if (i > 0 && PetscAbsReal(gray[perm[i]] - gray[perm[i-1]]) < PETSC_SMALL) continue;
-        rvals[j] = gsvals[nperm[j]];
-        ++j;
-      }
-      ierr = PetscFree2(perm, nperm);CHKERRQ(ierr);
-      if (size > 1) {ierr = PetscFree2(gray, gsvals);CHKERRQ(ierr);}
-      ierr = VecRestoreArray(x, &rvals);CHKERRQ(ierr);
-      ierr = MatMult(F, x, y);CHKERRQ(ierr);
-      ierr = VecChop(y, PETSC_SMALL);CHKERRQ(ierr);
-      ierr = VecViewFromOptions(x, NULL, "-real_view");CHKERRQ(ierr);
-      ierr = VecViewFromOptions(y, NULL, "-fft_view");CHKERRQ(ierr);
-      ierr = VecDestroy(&x);CHKERRQ(ierr);
-      ierr = VecDestroy(&y);CHKERRQ(ierr);
-      ierr = MatDestroy(&F);CHKERRQ(ierr);
-    }
-    ierr = ISRestoreIndices(stratum, &points);CHKERRQ(ierr);
-    ierr = ISDestroy(&stratum);CHKERRQ(ierr);
-    ierr = PetscFree2(ray, svals);CHKERRQ(ierr);
-  }
-  ierr = VecRestoreArrayRead(coordinates, &coords);CHKERRQ(ierr);
-  ierr = VecRestoreArrayRead(uloc, &array);CHKERRQ(ierr);
-  ierr = DMRestoreLocalVector(dm, &uloc);CHKERRQ(ierr);
-  PetscFunctionReturn(0);
-}*/
 
 int main(int argc, char **argv)
 {
@@ -478,32 +359,5 @@ int main(int argc, char **argv)
 }
 
 /*TEST
-
-  test:
-    # L_2 convergence rate: 1.9
-    suffix: 2d_p1_conv
-    requires: triangle
-    args: -potential_petscspace_degree 1 -k {{-2, 0, 2}} -snes_convergence_estimate -dm_refine 2 -convest_num_refine 3
-  test:
-    suffix: 2d_p1_gmg_vcycle
-    requires: triangle
-    args: -potential_petscspace_degree 1 -dm_plex_box_faces 16,16 -dm_refine_hierarchy 6 \
-          -ksp_type cg -ksp_rtol 1e-10 -pc_type mg -pc_mg_adapt_cr \
-            -mg_levels_ksp_max_it 2 \
-            -mg_levels_esteig_ksp_type cg \
-            -mg_levels_esteig_ksp_max_it 10 \
-            -mg_levels_ksp_chebyshev_esteig 0,0.05,0,1.05 \
-            -mg_levels_pc_type jacobi \
-            -mg_levels_cr_ksp_max_it 5 -mg_levels_cr_ksp_converged_rate -mg_levels_cr_ksp_converged_rate_type error
-  test:
-    suffix: 2d_p1_gmg_fcycle
-    requires: triangle
-    args: -potential_petscspace_degree 1 -dm_plex_box_faces 2,2 -dm_refine_hierarchy 3 \
-          -ksp_type cg -ksp_rtol 5e-10 -pc_type mg -pc_mg_type full \
-            -mg_levels_ksp_max_it 2 \
-            -mg_levels_esteig_ksp_type cg \
-            -mg_levels_esteig_ksp_max_it 10 \
-            -mg_levels_ksp_chebyshev_esteig 0,0.05,0,1.05 \
-            -mg_levels_pc_type jacobi
 
 TEST*/
