@@ -1,0 +1,459 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{none/global//global/global}
+  \entry{Ispen1997}{article}{}
+    \name{author}{2}{}{%
+      {{hash=II}{%
+         family={Ipsen},
+         familyi={I\bibinitperiod},
+         given={Ilse},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=MC}{%
+         family={Meyer},
+         familyi={M\bibinitperiod},
+         given={Carl},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{IIMC1}
+    \strng{fullhash}{IIMC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.2307/2589281
+    \endverb
+    \field{title}{The Idea Behind Krylov Methods}
+    \field{volume}{105}
+    \field{journaltitle}{The American Mathematical Monthly}
+    \field{month}{11}
+    \field{year}{1997}
+  \endentry
+
+  \entry{Bakhvalov1966}{article}{}
+    \name{author}{1}{}{%
+      {{hash=BN}{%
+         family={Bakhvalov},
+         familyi={B\bibinitperiod},
+         given={N.S.},
+         giveni={N\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BN1}
+    \strng{fullhash}{BN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb https://doi.org/10.1016/0041-5553(66)90118-2
+    \endverb
+    \field{issn}{0041-5553}
+    \field{number}{5}
+    \field{pages}{101\bibrangedash 135}
+    \field{title}{On the convergence of a relaxation method with natural
+  constraints on the elliptic operator}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/0041555366901182
+    \endverb
+    \field{volume}{6}
+    \field{journaltitle}{USSR Computational Mathematics and Mathematical
+  Physics}
+    \field{year}{1966}
+  \endentry
+
+  \entry{Fedorenko1962}{article}{}
+    \name{author}{1}{}{%
+      {{hash=FR}{%
+         family={Fedorenko},
+         familyi={F\bibinitperiod},
+         given={R.P.},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{FR1}
+    \strng{fullhash}{FR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb https://doi.org/10.1016/0041-5553(62)90031-9
+    \endverb
+    \field{issn}{0041-5553}
+    \field{number}{4}
+    \field{pages}{1092\bibrangedash 1096}
+    \field{title}{A relaxation method for solving elliptic difference
+  equations}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/0041555362900319
+    \endverb
+    \field{volume}{1}
+    \field{journaltitle}{USSR Computational Mathematics and Mathematical
+  Physics}
+    \field{year}{1962}
+  \endentry
+
+  \entry{Fedorenko1964}{article}{}
+    \name{author}{1}{}{%
+      {{hash=FR}{%
+         family={Fedorenko},
+         familyi={F\bibinitperiod},
+         given={R.P.},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{FR1}
+    \strng{fullhash}{FR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb https://doi.org/10.1016/0041-5553(64)90253-8
+    \endverb
+    \field{issn}{0041-5553}
+    \field{number}{3}
+    \field{pages}{227\bibrangedash 235}
+    \field{title}{The speed of convergence of one iterative process}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/0041555364902538
+    \endverb
+    \field{volume}{4}
+    \field{journaltitle}{USSR Computational Mathematics and Mathematical
+  Physics}
+    \field{year}{1964}
+  \endentry
+
+  \entry{Achi1973}{inproceedings}{}
+    \name{author}{1}{}{%
+      {{hash=BA}{%
+         family={Brandt},
+         familyi={B\bibinitperiod},
+         given={Achi},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \name{editor}{2}{}{%
+      {{hash=CH}{%
+         family={Cabannes},
+         familyi={C\bibinitperiod},
+         given={Henri},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=TR}{%
+         family={Temam},
+         familyi={T\bibinitperiod},
+         given={Roger},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer Berlin Heidelberg}%
+    }
+    \strng{namehash}{BA1}
+    \strng{fullhash}{BA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{Proceedings of the Third International Conference on
+  Numerical Methods in Fluid Mechanics}
+    \field{isbn}{978-3-540-38377-2}
+    \field{pages}{82\bibrangedash 89}
+    \field{title}{Multi-level adaptive technique (MLAT) for fast numerical
+  solution to boundary value problems}
+    \list{location}{1}{%
+      {Berlin, Heidelberg}%
+    }
+    \field{year}{1973}
+  \endentry
+
+  \entry{Achi1977}{article}{}
+    \name{author}{1}{}{%
+      {{hash=BA}{%
+         family={Brandt},
+         familyi={B\bibinitperiod},
+         given={Achi},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {American Mathematical Society}%
+    }
+    \strng{namehash}{BA1}
+    \strng{fullhash}{BA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{issn}{00255718, 10886842}
+    \field{number}{138}
+    \field{pages}{333\bibrangedash 390}
+    \field{title}{Multi-Level Adaptive Solutions to Boundary-Value Problems}
+    \verb{url}
+    \verb http://www.jstor.org/stable/2006422
+    \endverb
+    \field{volume}{31}
+    \field{journaltitle}{Mathematics of Computation}
+    \field{year}{1977}
+  \endentry
+
+  \entry{Hackbusch1977}{inbook}{}
+    \name{author}{1}{}{%
+      {{hash=HW}{%
+         family={Hackbusch},
+         familyi={H\bibinitperiod},
+         given={Wolfgang},
+         giveni={W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HW1}
+    \strng{fullhash}{HW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{pages}{50\bibrangedash }
+    \field{title}{A fast numerical method for elliptic boundary value problems
+  with variable coefficients}
+    \field{month}{10}
+    \field{year}{1977}
+  \endentry
+
+  \entry{May2016}{article}{}
+    \name{author}{5}{}{%
+      {{hash=MDA}{%
+         family={May},
+         familyi={M\bibinitperiod},
+         given={Dave\bibnamedelima A.},
+         giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=SP}{%
+         family={Sanan},
+         familyi={S\bibinitperiod},
+         given={Patrick},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=RK}{%
+         family={Rupp},
+         familyi={R\bibinitperiod},
+         given={Karl},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=KMG}{%
+         family={Knepley},
+         familyi={K\bibinitperiod},
+         given={Matthew\bibnamedelima G.},
+         giveni={M\bibinitperiod\bibinitdelim G\bibinitperiod},
+      }}%
+      {{hash=SBF}{%
+         family={Smith},
+         familyi={S\bibinitperiod},
+         given={Barry\bibnamedelima F.},
+         giveni={B\bibinitperiod\bibinitdelim F\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MDA+1}
+    \strng{fullhash}{MDASPRKKMGSBF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{eprint}
+    \verb 1604.07163
+    \endverb
+    \field{title}{Extreme-scale Multigrid Components within PETSc}
+    \verb{url}
+    \verb http://arxiv.org/abs/1604.07163
+    \endverb
+    \field{volume}{abs/1604.07163}
+    \field{journaltitle}{CoRR}
+    \field{eprinttype}{arXiv}
+    \field{year}{2016}
+  \endentry
+
+  \entry{Henk2000}{article}{}
+    \name{author}{1}{}{%
+      {{hash=vdVHA}{%
+         prefix={van\bibnamedelima der},
+         prefixi={v\bibinitperiod\bibinitdelim d\bibinitperiod},
+         family={Vorst},
+         familyi={V\bibinitperiod},
+         given={Henk\bibnamedelima A.},
+         giveni={H\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{VHAvd1}
+    \strng{fullhash}{VHAvd1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{pages}{32 \bibrangedash  37}
+    \field{title}{Krylov Subspace Iteration}
+    \field{journaltitle}{Computing in Science and Engineering}
+    \field{month}{01}
+    \field{year}{2000}
+  \endentry
+
+  \entry{Keener2000}{book}{}
+    \name{author}{1}{}{%
+      {{hash=KJP}{%
+         family={Keener},
+         familyi={K\bibinitperiod},
+         given={James\bibnamedelima P.},
+         giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KJP1}
+    \strng{fullhash}{KJP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{isbn}{0-7382-0129-4}
+    \field{title}{Principles of Applied Mathematics}
+    \field{year}{2000}
+  \endentry
+
+  \entry{Shewchuk1994}{report}{}
+    \name{author}{1}{}{%
+      {{hash=SJR}{%
+         family={Shewchuk},
+         familyi={S\bibinitperiod},
+         given={Jonathan\bibnamedelima R},
+         giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Carnegie Mellon University}%
+    }
+    \strng{namehash}{SJR1}
+    \strng{fullhash}{SJR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{An Introduction to the Conjugate Gradient Method Without the
+  Agonizing Pain}
+    \list{location}{1}{%
+      {USA}%
+    }
+    \field{type}{techreport}
+    \field{year}{1994}
+  \endentry
+
+  \entry{Briggs2000}{book}{}
+    \name{author}{3}{}{%
+      {{hash=BW}{%
+         family={Briggs},
+         familyi={B\bibinitperiod},
+         given={William},
+         giveni={W\bibinitperiod},
+      }}%
+      {{hash=HV}{%
+         family={Henson},
+         familyi={H\bibinitperiod},
+         given={Van},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=MS}{%
+         family={McCormick},
+         familyi={M\bibinitperiod},
+         given={Steve},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BWHVMS1}
+    \strng{fullhash}{BWHVMS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{isbn}{978-0-89871-462-3}
+    \field{title}{A Multigrid Tutorial, 2nd Edition}
+    \field{month}{01}
+    \field{year}{2000}
+  \endentry
+
+  \entry{Ernst2012}{inbook}{}
+    \name{author}{2}{}{%
+      {{hash=EOG}{%
+         family={Ernst},
+         familyi={E\bibinitperiod},
+         given={O.\bibnamedelima G.},
+         giveni={O\bibinitperiod\bibinitdelim G\bibinitperiod},
+      }}%
+      {{hash=GMJ}{%
+         family={Gander},
+         familyi={G\bibinitperiod},
+         given={M.\bibnamedelima J.},
+         giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \name{editor}{4}{}{%
+      {{hash=GIG}{%
+         family={Graham},
+         familyi={G\bibinitperiod},
+         given={Ivan\bibnamedelima G.},
+         giveni={I\bibinitperiod\bibinitdelim G\bibinitperiod},
+      }}%
+      {{hash=HTY}{%
+         family={Hou},
+         familyi={H\bibinitperiod},
+         given={Thomas\bibnamedelima Y.},
+         giveni={T\bibinitperiod\bibinitdelim Y\bibinitperiod},
+      }}%
+      {{hash=LO}{%
+         family={Lakkis},
+         familyi={L\bibinitperiod},
+         given={Omar},
+         giveni={O\bibinitperiod},
+      }}%
+      {{hash=SR}{%
+         family={Scheichl},
+         familyi={S\bibinitperiod},
+         given={Robert},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer Berlin Heidelberg}%
+    }
+    \strng{namehash}{EOGGMJ1}
+    \strng{fullhash}{EOGGMJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{Numerical Analysis of Multiscale Problems}
+    \verb{doi}
+    \verb 10.1007/978-3-642-22061-6_10
+    \endverb
+    \field{isbn}{978-3-642-22061-6}
+    \field{pages}{325\bibrangedash 363}
+    \field{title}{Why it is Difficult to Solve Helmholtz Problems with
+  Classical Iterative Methods}
+    \verb{url}
+    \verb https://doi.org/10.1007/978-3-642-22061-6_10
+    \endverb
+    \list{location}{1}{%
+      {Berlin, Heidelberg}%
+    }
+    \field{year}{2012}
+  \endentry
+
+  \entry{Farrell2018}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=FPE}{%
+         family={Farrell},
+         familyi={F\bibinitperiod},
+         given={Patrick\bibnamedelima E.},
+         giveni={P\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {University of Oxford}%
+    }
+    \strng{namehash}{FPE1}
+    \strng{fullhash}{FPE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Finite Element Methods for PDEs: C6.4 Hillary Term 2018}
+    \field{year}{2018}
+  \endentry
+\enddatalist
+\endinput
