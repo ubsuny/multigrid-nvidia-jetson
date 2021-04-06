@@ -455,5 +455,99 @@
     \field{title}{Finite Element Methods for PDEs: C6.4 Hillary Term 2018}
     \field{year}{2018}
   \endentry
+
+  \entry{AutomatedFEM2011}{book}{}
+    \name{author}{3}{}{%
+      {{hash=LA}{%
+         family={Logg},
+         familyi={L\bibinitperiod},
+         given={Anders},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=WG}{%
+         family={Wells},
+         familyi={W\bibinitperiod},
+         given={Garth},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=MKA}{%
+         family={Mardal},
+         familyi={M\bibinitperiod},
+         given={Kent-Andre},
+         giveni={K\bibinithyphendelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LAWGMKA1}
+    \strng{fullhash}{LAWGMKA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1007/978-3-642-23099-8
+    \endverb
+    \field{isbn}{978-3-642-23098-1}
+    \field{title}{Automated solution of differential equations by the finite
+  element method. The FEniCS book}
+    \field{volume}{84}
+    \field{journaltitle}{Lecture Notes in Computational Science and
+  Engineering}
+    \field{month}{04}
+    \field{year}{2011}
+  \endentry
+
+  \entry{Fenics2017}{book}{}
+    \name{author}{2}{}{%
+      {{hash=LHP}{%
+         family={Langtangen},
+         familyi={L\bibinitperiod},
+         given={Hans\bibnamedelima Petter},
+         giveni={H\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+      {{hash=LA}{%
+         family={Logg},
+         familyi={L\bibinitperiod},
+         given={Anders},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer Publishing Company, Incorporated}%
+    }
+    \strng{namehash}{LHPLA1}
+    \strng{fullhash}{LHPLA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{edition}{1st}
+    \field{isbn}{3319524615}
+    \field{title}{Solving PDEs in Python: The FEniCS Tutorial I}
+    \field{year}{2017}
+  \endentry
+
+  \entry{Langtangen2019}{book}{}
+    \name{author}{2}{}{%
+      {{hash=LHP}{%
+         family={Langtangen},
+         familyi={L\bibinitperiod},
+         given={Hans\bibnamedelima Petter},
+         giveni={H\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+      {{hash=MKA}{%
+         family={Mardal},
+         familyi={M\bibinitperiod},
+         given={Kent-Andre},
+         giveni={K\bibinithyphendelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LHPMKA1}
+    \strng{fullhash}{LHPMKA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1007/978-3-030-23788-2
+    \endverb
+    \field{isbn}{978-3-030-23787-5}
+    \field{title}{Introduction to Numerical Methods for Variational Problems}
+    \field{month}{01}
+    \field{year}{2019}
+  \endentry
 \enddatalist
 \endinput
