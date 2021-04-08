@@ -1,0 +1,52 @@
+#!/usr/local/bin/python3
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+# PLOT NORMS
+cgIN = open('cg_sor.txt' , 'r')
+richardsonIN = open('richardson_sor.txt', 'r')
+
+
+cgIt = []; cgNorm = []
+
+for line in cgIN.readlines():
+
+    cgIt.append( float( line.split()[0]))
+    cgNorm.append( float( line.split()[4] ) )
+
+richIt = []; richNorm = []
+
+for line in richardsonIN.readlines():
+
+    richIt.append( float( line.split()[0] ) )
+    richNorm.append( float( line.split()[4] ) )
+
+
+plt.clf()
+
+plt.plot( cgIt , cgNorm , 'r-', label='Conjugate Gradients')
+plt.plot( richIt, richNorm, 'k-', label='Richarson')
+plt.xlabel( 'Iteration' ), plt.ylabel( 'Norm Residual' )
+plt.yscale('log')
+plt.legend( loc='upper right' , numpoints = 1 )
+plt.title( 'Residual Convergence Comparison')
+
+plt.savefig( 'CGRichPlot.pdf' )
+
+
+
+
+
+# PLOT EXACT Solutions
+x = np.linspace(0,1,1000)
+y = np.linspace(0,1,1000)
+z = np.linspace(0,1,1000)
+
+plt.clf()
+
+plt.contour( [x,y] , 1 + x**2 + 2*y**2 , levels=[1,2,3,4])
+plt.xlabel( 'x' ), plt.ylabel( 'y' )
+plt.title( '$u(x,y) = 1 + x^2 +2y^2$')
+
+plt.savefig( 'Quad_Contour.pdf' )
