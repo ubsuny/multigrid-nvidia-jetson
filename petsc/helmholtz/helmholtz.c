@@ -269,7 +269,6 @@ int main(int argc, char **argv)
 	PetscInt Nfields;
 	ierr = DMGetDS(dm, &ds);CHKERRQ(ierr);
 	ierr = PetscDSGetNumFields(ds, &Nfields);CHKERRQ(ierr);
-	ierr = PetscPrintf(PETSC_COMM_WORLD, "Number of fields = %d \n",Nfields);CHKERRQ(ierr);
 
 
 	ierr = SNESSolve(snes, NULL, u);CHKERRQ(ierr);
