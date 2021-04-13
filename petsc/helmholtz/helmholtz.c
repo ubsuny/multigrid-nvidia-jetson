@@ -18,22 +18,11 @@ and coarse space adaptivity.\n\n\n";
 #include <petscds.h>
 #include <petscconvest.h>
 
-/*
-typedef enum {COEFF_CONSTANT, COEFF_STEP, COEFF_CHECKERBOARD, COEFF_ANISOTROPIC, NUM_COEFF} CoeffType;
-const char *CoeffTypes[NUM_COEFF+2] = {"constant", "step", "checkerboard", "anisotropic", "unknown", NULL};
-*/
+
 typedef struct {
   /* Domain and mesh definition */
-  //PetscBool spectral; /* Look at the spectrum along planes in the solution */
   PetscBool shear;    /* Shear the domain */
   PetscBool adjoint;  /* Solve the adjoint problem */
-  /* Problem definition */
-  //CoeffType ctype;    /* Type of coefficient behavior */
-  /* Reproducing tests from SISC 40(3), pp. A1473-A1493, 2018 */
-  //PetscInt  div;      /* Number of divisions */
-  //PetscInt  k;        /* Parameter for checkerboard coefficient */
-  //PetscInt *kgrid;    /* Random parameter grid */
-  PetscInt	c; /*Random Constant*/
 } AppCtx;
 
 static PetscErrorCode zero(PetscInt dim, PetscReal time, const PetscReal x[], PetscInt Nc, PetscScalar *u, void *ctx)
@@ -73,7 +62,7 @@ static PetscErrorCode quad_u(PetscInt dim, PetscReal time, const PetscReal x[], 
 {
   PetscInt d;
   *u = 1.0;
-  for (d = 0; d < dim; ++d) *u += (d+1)*powf(x[d],2);
+  for (d = 0; d < dim; ++d) *u += (d+1)*PetscSqr(x[d]);
   return 0;
 }
 
@@ -106,7 +95,8 @@ static void f0_quad_u(PetscInt dim, PetscInt Nf, PetscInt NfAux,
 			f0[0] = 5.0;
 			break;
   	}
-	for (d = 0; d < dim; ++d) f0[0] += u[d] - (dim+1)*PetscSqr(x[d]);
+	f0[0] += u[0];
+	for (d = 0; d < dim; ++d) f0[0] -= (d+1)*PetscSqr(x[d]);
 }
 
 static void f1_u(PetscInt dim, PetscInt Nf, PetscInt NfAux,
@@ -127,7 +117,6 @@ static PetscErrorCode ProcessOptions(DM dm, AppCtx *options)
   PetscFunctionBeginUser;
   ierr = PetscObjectGetComm((PetscObject) dm, &comm);CHKERRQ(ierr);
   ierr = DMGetDimension(dm, &dim);CHKERRQ(ierr);
-  options->c = 1;
   ierr = PetscOptionsBegin(comm, "", "Helmholtz Problem Options", "DMPLEX");CHKERRQ(ierr);
   ierr = PetscOptionsEnd();
 
@@ -183,12 +172,6 @@ static PetscErrorCode SetupPrimalProblem(DM dm, AppCtx *user)
   ierr = PetscDSSetExactSolution(ds, 0, quad_u, user);CHKERRQ(ierr);
   ierr = DMAddBoundary(dm, DM_BC_ESSENTIAL, "wall", "marker", 0, 0, NULL, (void (*)(void)) quad_u, NULL, 1, &id, user);CHKERRQ(ierr);
 
-  /*{
-	PetscScalar constants[2];
-
-	constants[0] = user->c;
-	ierr = PetscDSSetConstants(ds, 2, constants);CHKERRQ(ierr);
-}*/
   PetscFunctionReturn(0);
 }
 
@@ -269,8 +252,6 @@ int main(int argc, char **argv)
 	PetscInt Nfields;
 	ierr = DMGetDS(dm, &ds);CHKERRQ(ierr);
 	ierr = PetscDSGetNumFields(ds, &Nfields);CHKERRQ(ierr);
-
-
 	ierr = SNESSolve(snes, NULL, u);CHKERRQ(ierr);
 	ierr = SNESGetSolution(snes, &u);CHKERRQ(ierr);
 	ierr = VecViewFromOptions(u, NULL, "-potential_view");CHKERRQ(ierr);
@@ -284,6 +265,75 @@ int main(int argc, char **argv)
 	return ierr;
 }
 
-/*TEST
 
+/* The testing st*/
+/*TEST
+test:
+  # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
+  suffix: 2d_p1_conv
+  requires: triangle
+  args: -potential_petscspace_degree 1 -snes_convergence_estimate -convest_num_refine 3
+test:
+  # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
+  suffix: 2d_p2_conv
+  requires: triangle
+  args: -potential_petscspace_degree 2 -snes_convergence_estimate -convest_num_refine 2
+test:
+  # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
+  suffix: 2d_p3_conv
+  requires: triangle
+  args: -potential_petscspace_degree 3 -snes_convergence_estimate -convest_num_refine 2
+test:
+  # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
+  suffix: 2d_q1_conv
+  args: -dm_plex_box_simplex 0 -potential_petscspace_degree 1 -snes_convergence_estimate -convest_num_refine 2
+test:
+  # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
+  suffix: 2d_q2_conv
+  args: -dm_plex_box_simplex 0 -potential_petscspace_degree 2 -snes_convergence_estimate -convest_num_refine 2
+test:
+  # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
+  suffix: 2d_q3_conv
+  args: -dm_plex_box_simplex 0 -potential_petscspace_degree 3 -snes_convergence_estimate -convest_num_refine 2
+test:
+  # Using -convest_num_refine 3 we get L_2 convergence rate:
+  suffix: 3d_p1_conv
+  requires: ctetgen
+  args: -dm_plex_box_dim 3 -dm_refine 1 -potential_petscspace_degree 1 -snes_convergence_estimate -convest_num_refine 1
+test:
+  # Using -dm_refine 1 -convest_num_refine 3 we get L_2 convergence rate:
+  suffix: 3d_p2_conv
+  requires: ctetgen
+  args: -dm_plex_box_dim 3 -dm_plex_box_faces 2,2,2 -potential_petscspace_degree 2 -snes_convergence_estimate -convest_num_refine 1
+test:
+  # Using -dm_refine 1 -convest_num_refine 3 we get L_2 convergence rate:
+  suffix: 3d_p3_conv
+  requires: ctetgen
+  args: -dm_plex_box_dim 3 -dm_plex_box_faces 2,2,2 -potential_petscspace_degree 3 -snes_convergence_estimate -convest_num_refine 1
+test:
+  # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
+  suffix: 3d_q1_conv
+  args: -dm_plex_box_dim 3 -dm_plex_box_simplex 0 -dm_refine 1 -potential_petscspace_degree 1 -snes_convergence_estimate -convest_num_refine 1
+test:
+  # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
+  suffix: 3d_q2_conv
+  args: -dm_plex_box_dim 3 -dm_plex_box_simplex 0 -potential_petscspace_degree 2 -snes_convergence_estimate -convest_num_refine 1
+test:
+  # Using -dm_refine 1 -convest_num_refine 3 we get L_2 convergence rate:
+  suffix: 3d_q3_conv
+  args: -dm_plex_box_dim 3 -dm_plex_box_simplex 0 -potential_petscspace_degree 3 -snes_convergence_estimate -convest_num_refine 1
+test:
+  suffix: 2d_p1_gmg_vcycle
+  requires: triangle
+  args: -potential_petscspace_degree 1 -dm_plex_box_faces 2,2 -dm_refine_hierarchy 3 \
+    -ksp_type cg -ksp_rtol 1e-10 -pc_type mg \
+    -mg_levels_ksp_max_it 1 \
+    -mg_levels_pc_type jacobi
+test:
+  suffix: 2d_p1_gmg_fcycle
+  requires: triangle
+  args: -potential_petscspace_degree 1 -dm_plex_box_faces 2,2 -dm_refine_hierarchy 3 \
+    -ksp_type cg -ksp_rtol 1e-10 -pc_type mg -pc_mg_type full \
+    -mg_levels_ksp_max_it 2 \
+    -mg_levels_pc_type jacobi
 TEST*/

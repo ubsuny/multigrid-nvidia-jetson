@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  5 APR 2021 14:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  13 APR 2021 16:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -382,63 +382,67 @@ File: biblatex.cfg
 \c@theorem=\count378
 \c@proposition=\count379
 
+(/usr/local/texlive/2020/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2017/10/31 v2.20.4
+\thm@style=\toks21
+\thm@bodyfont=\toks22
+\thm@headfont=\toks23
+\thm@notefont=\toks24
+\thm@headpunct=\toks25
+\thm@preskip=\skip74
+\thm@postskip=\skip75
+\thm@headsep=\skip76
+\dth@everypar=\toks26
+)
+\c@definition=\count380
+
 (/usr/local/texlive/2020/texmf-dist/tex/latex/parskip/parskip.sty
 Package: parskip 2020-01-22 v2.0d non-zero parskip adjustments
 )
-\@quotelevel=\count380
-\@quotereset=\count381
+\@quotelevel=\count381
+\@quotereset=\count382
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count382
+\l__kernel_color_stack_int=\count383
 \l__pdf_internal_box=\box47
 )
 (./HelmholtzMultigrid.aux)
 \openout1 = `HelmholtzMultigrid.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
 
 (/usr/local/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count383
+\scratchcounter=\count384
 \scratchdimen=\dimen146
 \scratchbox=\box48
-\nofMPsegments=\count384
-\nofMParguments=\count385
-\everyMPshowfont=\toks21
-\MPscratchCnt=\count386
+\nofMPsegments=\count385
+\nofMParguments=\count386
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count387
 \MPscratchDim=\dimen147
-\MPnumerator=\count387
-\makeMPintoPDFobject=\count388
-\everyMPtoPDFconversion=\toks22
+\MPnumerator=\count388
+\makeMPintoPDFobject=\count389
+\everyMPtoPDFconversion=\toks28
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-
-(/usr/local/texlive/2020/texmf-dist/tex/latex/grfext/grfext.sty
-Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
-
-(/usr/local/texlive/2020/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
-Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-))
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 504.
+
 (/usr/local/texlive/2020/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
@@ -461,27 +465,27 @@ Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'HelmholtzMultigrid.bbl' found.
 
 (./HelmholtzMultigrid.bbl)
-Package biblatex Info: Reference section=0 on input line 16.
-Package biblatex Info: Reference segment=0 on input line 16.
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 23
+Package biblatex Info: Reference section=0 on input line 18.
+Package biblatex Info: Reference segment=0 on input line 18.
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 25
 .
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 23.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 25.
 
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 23.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 25.
 
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (5.83394pt too wide) in paragraph at lines 34--35
+Overfull \hbox (5.83394pt too wide) in paragraph at lines 36--37
 []\OT1/cmr/m/n/10 For this project, we will ex-plore us-ing multi-grid meth-ods
  through the Portable,
  []
@@ -497,23 +501,23 @@ oject/Midsemester_Update/CG_Algorithm.png Graphic file (type png)
 ject/Midsemester_Update/CG_Algorithm.png>
 Package pdftex.def Info: /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506
 _CompPhys2/Final_Project/Midsemester_Update/CG_Algorithm.png  used on input lin
-e 54.
+e 56.
 (pdftex.def)             Requested size: 217.41393pt x 198.74402pt.
 
 [2]
 
-LaTeX Warning: Command \textohm invalid in math mode on input line 92.
+LaTeX Warning: Command \textohm invalid in math mode on input line 94.
 
 
-LaTeX Warning: Command \textohm invalid in math mode on input line 92.
+LaTeX Warning: Command \textohm invalid in math mode on input line 94.
 
 [3 </Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Proj
 ect/Midsemester_Update/CG_Algorithm.png>]
 
-LaTeX Warning: Command \textohm invalid in math mode on input line 94.
+LaTeX Warning: Command \textohm invalid in math mode on input line 96.
 
 
-LaTeX Warning: Command \textohm invalid in math mode on input line 94.
+LaTeX Warning: Command \textohm invalid in math mode on input line 96.
 
 [4]
 </Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Project
@@ -523,12 +527,12 @@ oject/Midsemester_Update/Domain.png Graphic file (type png)
 <use /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Pro
 ject/Midsemester_Update/Domain.png>
 Package pdftex.def Info: /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506
-_CompPhys2/Final_Project/Midsemester_Update/Domain.png  used on input line 133.
+_CompPhys2/Final_Project/Midsemester_Update/Domain.png  used on input line 154.
 
 (pdftex.def)             Requested size: 258.72859pt x 116.21104pt.
- [5 </Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Pro
-ject/Midsemester_Update/Domain.png>] [6]
-Overfull \hbox (10.3046pt too wide) detected at line 210
+ [5] [6 </Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final
+_Project/Midsemester_Update/Domain.png>] [7]
+Overfull \hbox (10.3046pt too wide) detected at line 231
 [] \OML/cmm/m/it/10 U[] [][] \OMS/cmsy/m/n/10 r\OML/cmm/m/it/10 ^^^[] \OMS/cmsy
 /m/n/10 ^^A r\OML/cmm/m/it/10 ^^^[] dx \OT1/cmr/m/n/10 + [] \OML/cmm/m/it/10 U[
 ] [][] ^^^[] ^^^[] dx \OT1/cmr/m/n/10 = [][](\OMS/cmsy/m/n/10 ^^@\OT1/cmr/m/n/1
@@ -537,19 +541,19 @@ Overfull \hbox (10.3046pt too wide) detected at line 210
 mr/m/n/10 2\OML/cmm/m/it/10 ; :::; N:
  []
 
-[7] [8] [9] (./HelmholtzMultigrid.aux)
+[8] [9] [10] (./HelmholtzMultigrid.aux)
 Package logreq Info: Writing requests to 'HelmholtzMultigrid.run.xml'.
 \openout1 = `HelmholtzMultigrid.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 9529 strings out of 480608
- 174141 string characters out of 5903631
- 619017 words of memory out of 5000000
- 25312 multiletter control sequences out of 15000+600000
+ 9563 strings out of 480608
+ 174058 string characters out of 5903631
+ 619353 words of memory out of 5000000
+ 25350 multiletter control sequences out of 15000+600000
  541987 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,28n,45p,1235b,1272s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,28n,45p,1235b,1273s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 }</usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
 </usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
@@ -568,10 +572,10 @@ ve/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive
 2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2
 020/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texli
 ve/2020/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on HelmholtzMultigrid.pdf (9 pages, 271412 bytes).
+Output written on HelmholtzMultigrid.pdf (10 pages, 276550 bytes).
 PDF statistics:
- 108 PDF objects out of 1000 (max. 8388607)
- 75 compressed objects within 1 object stream
+ 111 PDF objects out of 1000 (max. 8388607)
+ 77 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
