@@ -21,8 +21,7 @@ and coarse space adaptivity.\n\n\n";
 
 typedef struct {
   /* Domain and mesh definition */
-  PetscBool shear;    /* Shear the domain */
-  PetscBool adjoint;  /* Solve the adjoint problem */
+  PetscBool trig; /* Use trig function as exact solution */
 } AppCtx;
 
 static PetscErrorCode zero(PetscInt dim, PetscReal time, const PetscReal x[], PetscInt Nc, PetscScalar *u, void *ctx)
@@ -72,7 +71,8 @@ static void f0_trig_u(PetscInt dim, PetscInt Nf, PetscInt NfAux,
                       PetscReal t, const PetscReal x[], PetscInt numConstants, const PetscScalar constants[], PetscScalar f0[])
 {
   PetscInt d;
-  for (d = 0; d < dim; ++d) f0[0] += -4.0*PetscSqr(PETSC_PI)*PetscSinReal(2.0*PETSC_PI*x[d]) + PetscSinReal(2.0*PETSC_PI*x[d]);
+  f0[0] += u[0];
+  for (d = 0; d < dim; ++d) f0[0] -= 4.0*PetscSqr(PETSC_PI)*PetscSinReal(2.0*PETSC_PI*x[d]) + PetscSinReal(2.0*PETSC_PI*x[d]);
 }
 
 static void f0_quad_u(PetscInt dim, PetscInt Nf, PetscInt NfAux,
@@ -117,7 +117,10 @@ static PetscErrorCode ProcessOptions(DM dm, AppCtx *options)
   PetscFunctionBeginUser;
   ierr = PetscObjectGetComm((PetscObject) dm, &comm);CHKERRQ(ierr);
   ierr = DMGetDimension(dm, &dim);CHKERRQ(ierr);
+  options->trig = PETSC_FALSE;
+
   ierr = PetscOptionsBegin(comm, "", "Helmholtz Problem Options", "DMPLEX");CHKERRQ(ierr);
+  ierr = PetscOptionsBool("-exact_trig", "Use trigonometric exact solution (better for more complex finite elements)", "ex26.c", options->trig, &options->trig, NULL);CHKERRQ(ierr);
   ierr = PetscOptionsEnd();
 
 
@@ -167,11 +170,19 @@ static PetscErrorCode SetupPrimalProblem(DM dm, AppCtx *user)
 
   PetscFunctionBeginUser;
   ierr = DMGetDS(dm, &ds);CHKERRQ(ierr);
-  ierr = PetscDSSetResidual(ds, 0, f0_quad_u, f1_u);CHKERRQ(ierr);
-  ierr = PetscDSSetJacobian(ds, 0, 0, g0_uu, NULL, NULL, g3_uu);CHKERRQ(ierr);
-  ierr = PetscDSSetExactSolution(ds, 0, quad_u, user);CHKERRQ(ierr);
-  ierr = DMAddBoundary(dm, DM_BC_ESSENTIAL, "wall", "marker", 0, 0, NULL, (void (*)(void)) quad_u, NULL, 1, &id, user);CHKERRQ(ierr);
 
+  if (user->trig) {
+	ierr = PetscPrintf(PETSC_COMM_WORLD,"Trig Exact Solution \n");CHKERRQ(ierr);
+	ierr = PetscDSSetResidual(ds, 0, f0_trig_u, f1_u);CHKERRQ(ierr);
+    ierr = PetscDSSetJacobian(ds, 0, 0, g0_uu, NULL, NULL, g3_uu);CHKERRQ(ierr);
+	ierr = PetscDSSetExactSolution(ds, 0, trig_u, user);CHKERRQ(ierr);
+	ierr = DMAddBoundary(dm, DM_BC_ESSENTIAL, "wall", "marker", 0, 0, NULL, (void (*)(void)) trig_u, NULL, 1, &id, user);CHKERRQ(ierr);
+  } else {
+	ierr = PetscDSSetResidual(ds, 0, f0_quad_u, f1_u);CHKERRQ(ierr);
+	ierr = PetscDSSetJacobian(ds, 0, 0, g0_uu, NULL, NULL, g3_uu);CHKERRQ(ierr);
+	ierr = PetscDSSetExactSolution(ds, 0, quad_u, user);CHKERRQ(ierr);
+	ierr = DMAddBoundary(dm, DM_BC_ESSENTIAL, "wall", "marker", 0, 0, NULL, (void (*)(void)) quad_u, NULL, 1, &id, user);CHKERRQ(ierr);
+ }
   PetscFunctionReturn(0);
 }
 
@@ -265,8 +276,6 @@ int main(int argc, char **argv)
 	return ierr;
 }
 
-
-/* The testing st*/
 /*TEST
 test:
   # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
@@ -285,16 +294,16 @@ test:
   args: -potential_petscspace_degree 3 -snes_convergence_estimate -convest_num_refine 2
 test:
   # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
-  suffix: 2d_q1_conv
-  args: -dm_plex_box_simplex 0 -potential_petscspace_degree 1 -snes_convergence_estimate -convest_num_refine 2
+  suffix: 2d_q1_trig_conv
+  args: -exact_trig -dm_plex_box_simplex 0 -potential_petscspace_degree 1 -snes_convergence_estimate -convest_num_refine 2
 test:
   # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
-  suffix: 2d_q2_conv
-  args: -dm_plex_box_simplex 0 -potential_petscspace_degree 2 -snes_convergence_estimate -convest_num_refine 2
+  suffix: 2d_q2_trig_conv
+  args: -exact_trig -dm_plex_box_simplex 0 -potential_petscspace_degree 2 -snes_convergence_estimate -convest_num_refine 2
 test:
   # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
-  suffix: 2d_q3_conv
-  args: -dm_plex_box_simplex 0 -potential_petscspace_degree 3 -snes_convergence_estimate -convest_num_refine 2
+  suffix: 2d_q3_trig_conv
+  args: -exact_trig -dm_plex_box_simplex 0 -potential_petscspace_degree 3 -snes_convergence_estimate -convest_num_refine 2
 test:
   # Using -convest_num_refine 3 we get L_2 convergence rate:
   suffix: 3d_p1_conv
@@ -312,16 +321,16 @@ test:
   args: -dm_plex_box_dim 3 -dm_plex_box_faces 2,2,2 -potential_petscspace_degree 3 -snes_convergence_estimate -convest_num_refine 1
 test:
   # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
-  suffix: 3d_q1_conv
-  args: -dm_plex_box_dim 3 -dm_plex_box_simplex 0 -dm_refine 1 -potential_petscspace_degree 1 -snes_convergence_estimate -convest_num_refine 1
+  suffix: 3d_q1_trig_conv
+  args: -exact_trig -dm_plex_box_dim 3 -dm_plex_box_simplex 0 -dm_refine 1 -potential_petscspace_degree 1 -snes_convergence_estimate -convest_num_refine 1
 test:
   # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
-  suffix: 3d_q2_conv
-  args: -dm_plex_box_dim 3 -dm_plex_box_simplex 0 -potential_petscspace_degree 2 -snes_convergence_estimate -convest_num_refine 1
+  suffix: 3d_q2_trig_conv
+  args: -exact_trig -dm_plex_box_dim 3 -dm_plex_box_simplex 0 -potential_petscspace_degree 2 -snes_convergence_estimate -convest_num_refine 1
 test:
   # Using -dm_refine 1 -convest_num_refine 3 we get L_2 convergence rate:
-  suffix: 3d_q3_conv
-  args: -dm_plex_box_dim 3 -dm_plex_box_simplex 0 -potential_petscspace_degree 3 -snes_convergence_estimate -convest_num_refine 1
+  suffix: 3d_q3_trig_conv
+  args: -exact_trig -dm_plex_box_dim 3 -dm_plex_box_simplex 0 -potential_petscspace_degree 3 -snes_convergence_estimate -convest_num_refine 1
 test:
   suffix: 2d_p1_gmg_vcycle
   requires: triangle
@@ -335,5 +344,12 @@ test:
   args: -potential_petscspace_degree 1 -dm_plex_box_faces 2,2 -dm_refine_hierarchy 3 \
     -ksp_type cg -ksp_rtol 1e-10 -pc_type mg -pc_mg_type full \
     -mg_levels_ksp_max_it 2 \
+    -mg_levels_pc_type jacobi
+test:
+  suffix: 2d_p1_gmg_vcycle_trig
+  requires: triangle
+  args: -exact_trig -potential_petscspace_degree 1 -dm_plex_box_faces 2,2 -dm_refine_hierarchy 3 \
+    -ksp_type cg -ksp_rtol 1e-10 -pc_type mg \
+    -mg_levels_ksp_max_it 1 \
     -mg_levels_pc_type jacobi
 TEST*/
