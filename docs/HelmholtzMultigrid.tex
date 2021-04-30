@@ -8,7 +8,9 @@
 \usepackage[backend=bibtex,sorting=none]{biblatex}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}{Proposition}[section]
-%\usepackage[]{biblatex}
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
 \usepackage{parskip}
 \setlength{\parindent}{15pt}
 \addbibresource{ref.bib}
@@ -126,8 +128,27 @@ The V-Cycle is just one of many different multigrid schemes.
 
 \subsection{Helmholtz Equation}
 
+\subsubsection{Good Cop vs. Bad Cop}
 
-Solving the general Helmholtz equation $-\Delta u +k^2 u = f$ with multigrid methods is an open problem in the field of numerical methods \cite{Ernst2012}.  For that reason, we consider only the case where $k^2=1$, referred to as the "Good" Helmholtz equation \cite{Farrell2018},
+
+Solving the general Helmholtz equation, 
+\begin{equation}
+-\Delta u + k^2 u = f,
+\end{equation} 
+with numerical methods, and particularly multigrid methods, is an open problem \cite{Ernst2012}.  We will briefly touch upon why this is in this section before moving forward with the formulation used in this project.  For simplicity, we consider only the cases where $k^2=+1$ and $k^2=-1$, respectively referred to as "Good Cop" and "Bad Cop" Helmholtz equations.  First, we introduce the concepts of \textit{positive definite} and \textit{negative definite} matrices.
+
+\begin{definition}
+A $n \times n$ Hermitian matrix, $A$, is said to be \textbf{positive definite} if the scalar $z^* A z$ is \textit{positive} for all real, non-zero column vectors $z$ of size $n$.  Here, $z^*$ denotes the conjugate transpose of the vector $z$.  If however $z^* A z$ is \textit{negative}, then $A$ is called a \textbf{negative definite} matrix.  Lastly, if $z^* A z$ can be either \textit{positive} or \textit{zero}, then it is called \textbf{positive semi-definite}, and, similarly, if $z^* A z$ can be either \textit{negative} or \textit{zero}, it is called \textbf{negative semi-definite} \cite{Keener2000}.
+\label{PosDef}
+\end{definition}
+
+It is worth noting that the existence of positive, negative or zero eigenvalues of a matrix can also be used to define what type of matrix $A$ is.  Since we strive to convert our initial equation formulation $-\Delta u + k^2 u = f$, also called the \textit{strong form}, to a linear system $Au=f$, we can extend \eqref{PosDef} to the strong form of our equations where $A=-\Delta + k^2$.  Furthermore, in numerical methods, a positive definite operators are highly desirably as they can be easily inverted and contain other useful properties.  
+
+The negative Laplacian operator, $-\Delta$, is well known for being a positive definite operator.  Therefore, the positive definiteness of the Helmholtz equation is dependent on the $k^2$ term.  If $k^2 \geq 0$, i.e. the "Good Cop" form, then the equation remains positive definite and is solvable with common methods.  However, if $k^2 \leq 0$, i.e. the "Bad Cop" form, then the equation becomes indefinite and solution becomes much trickier.  As stated at the beginning of this section, solving the indefinite form of the Helmholtz equation is still an open research topic of interest.
+
+
+\subsubsection{Variational Formulation}
+For the reasons given in the previous section, we consider only the case where $k^2=+1$, or the "Good Cop" Helmholtz equation \cite{Farrell2018},
 \begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.6]{/Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Project/Midsemester_Update/Domain.png}
@@ -141,7 +162,7 @@ u &= u_0 \;\; on \;\; \Gamma_D \subset \partial \Omega, \\
 \nabla u\cdot n &= g \;\; on \;\; \Gamma_N \subset \partial \Omega.
 \label{pde}
 \end{align}
-To discretize this equation, we use the finite elements method.  The first step in discretization is to derive a weak (or variational) formulation.  The process used to derive the weak form for the "Good" Helmholtz equation in this project can be found in \cite{AutomatedFEM2011} and \cite{Fenics2017}.  We start by multiplying by a test function $v$ and integrating over the domain to obtain,
+To discretize this equation, we use the finite elements method.  The first step in discretization is to derive a weak (or variational) formulation.  The process used to derive the weak form for the "Good Cop" Helmholtz equation in this project can be found in \cite{AutomatedFEM2011} and \cite{Fenics2017}.  We start by multiplying by a test function $v$ and integrating over the domain to obtain,
 \begin{equation}
 -\int_{\Omega} (\Delta u) \, v \, dx + \int_{\Omega} u \, v \, dx = \int_{\Omega} f \, v \, dx.
 \end{equation}
@@ -150,7 +171,7 @@ It is common when deriving weak formulations to try and reduce the order of the 
 -\int_\Omega (\Delta u) \, v \, dx &= \int_\Omega \nabla u \cdot \nabla v - \int_{\Gamma} \frac{\partial u}{\partial n} \, v \, ds, \\
  &= \int_\Omega \nabla u \cdot \nabla v - \int_{\Gamma} \nabla u \cdot v \, ds,
 \end{align}
-where $\frac{\partial u}{\partial n} = \nabla u \cdot n$ is the derivative of $u$ in the normal direction $n$ on the boundary.  Using this formula on the Helmholtz equation gives, 
+where $\frac{\partial u}{\partial n} = \nabla u \cdot n$ is the derivative of $u$ in the normal direction $n$ on the boundary.  We note that Gauss' Theorem is used to replace the volume integral with the surface integral.  Using this formula on the Helmholtz equation gives, 
 \begin{equation}
 \int_{\Omega} \nabla u \cdot \nabla v \, dx - \int_{\Gamma_N} v \, (\nabla u \cdot n) \, ds + \int_{\Omega} u \, v \, dx = \int_{\Omega} f \, v \, dx.
 \end{equation}
@@ -170,7 +191,7 @@ The next step is to replace the infinite-dimensional function spaces $V$ and $\h
 \begin{equation}
 \int_{\Omega} \nabla u_h \cdot \nabla v \, dx + \int_{\Omega} u_h \, v \, dx = \int_{\Omega} f \, v \, dx \;\; \forall v \in \hat{V_h} \subset \hat{V}.
 \end{equation}
-This discretized weak form along with suitable definitions of the discrete trial and test spaces $V$ and $\hat{V}$ define the approximate numerical solution for the "Good" Helmholtz equation.  We assume that we have a basis $\lbrace \phi_j \rbrace^N_{j=1}$ for $V_h$ and a basis $\lbrace \hat{\phi}_i\rbrace^N_{i=1}$ for $\hat{V}_h$, where N is the dimension of the space $V_h$.  We can then make an ansatz for $u_h$ in terms of the basis functions of the trail space,
+This discretized weak form along with suitable definitions of the discrete trial and test spaces $V$ and $\hat{V}$ define the approximate numerical solution for the "Good Cop" Helmholtz equation.  We assume that we have a basis $\lbrace \phi_j \rbrace^N_{j=1}$ for $V_h$ and a basis $\lbrace \hat{\phi}_i\rbrace^N_{i=1}$ for $\hat{V}_h$, where N is the dimension of the space $V_h$.  We can then make an ansatz for $u_h$ in terms of the basis functions of the trail space,
 \begin{equation}
 u_h (x) = \sum^N_{j=1} U_j \phi_j(x),
 \end{equation}
@@ -191,7 +212,7 @@ b_i &= \int_{\Omega} f \, \phi_i \, dx.
 
 \subsubsection{Method of Manufactured Solutions}
 
-Thus far, we have used a generalized form of the "Good" Helmholtz equation, including some function $f$ and domain $\Omega$, to derive the necessary formulations needed for our code.  For the implementation, however, we require some specific choices for $f$, $\Omega$ and $u_0$.  Furthermore, it is wise to first choose an exact solution for $u$ and   derive $f$, $\Omega$ and $u_0$ based on the exact solution.  This process is referred to as the \textit{Method of Manufactured Solutions}.  Therefore, we choose our exact solution to be,
+Thus far, we have used a generalized form of the "Good Cop" Helmholtz equation, including some function $f$ and domain $\Omega$, to derive the necessary formulations needed for our code.  For the implementation, however, we require some specific choices for $f$, $\Omega$ and $u_0$.  Furthermore, it is wise to first choose an exact solution for $u$ and   derive $f$, $\Omega$ and $u_0$ based on the exact solution.  This process is referred to as the \textit{Method of Manufactured Solutions}.  Therefore, we choose our exact solution to be,
 \begin{equation}
 u_e(x,y) = 1 + x^2 + 2 y^2.
 \end{equation}
@@ -232,7 +253,7 @@ f_0 &= u - (-5 + x^2 + 2 y^2), \\
 f_1 &= \nabla u, \\
 g_0 &= 1.0, \\
 g_1 &= 0.0, \\
-g_2 &= 0.0, and \\
+g_2 &= 0.0,\; and \\
 g_3 &= 1.0.
 \end{align}
 
