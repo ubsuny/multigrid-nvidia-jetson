@@ -165,44 +165,46 @@ static PetscErrorCode CreateMesh(MPI_Comm comm, AppCtx *user, DM *dm)
 static PetscErrorCode SetupPrimalProblem(DM dm, AppCtx *user)
 {
   PetscDS        ds;
+  DMLabel        label;
   const PetscInt id = 1;
   PetscErrorCode ierr;
 
   PetscFunctionBeginUser;
   ierr = DMGetDS(dm, &ds);CHKERRQ(ierr);
-
+  ierr = DMGetLabel(dm, "marker", &label);CHKERRQ(ierr);
   if (user->trig) {
-	ierr = PetscPrintf(PETSC_COMM_WORLD,"Trig Exact Solution \n");CHKERRQ(ierr);
 	ierr = PetscDSSetResidual(ds, 0, f0_trig_u, f1_u);CHKERRQ(ierr);
     ierr = PetscDSSetJacobian(ds, 0, 0, g0_uu, NULL, NULL, g3_uu);CHKERRQ(ierr);
 	ierr = PetscDSSetExactSolution(ds, 0, trig_u, user);CHKERRQ(ierr);
-	ierr = DMAddBoundary(dm, DM_BC_ESSENTIAL, "wall", "marker", 0, 0, NULL, (void (*)(void)) trig_u, NULL, 1, &id, user);CHKERRQ(ierr);
+	ierr = DMAddBoundary(dm, DM_BC_ESSENTIAL, "wall", label, 1, &id, 0, 0, NULL, (void (*)(void)) trig_u, NULL, user, NULL);CHKERRQ(ierr);
   } else {
 	ierr = PetscDSSetResidual(ds, 0, f0_quad_u, f1_u);CHKERRQ(ierr);
 	ierr = PetscDSSetJacobian(ds, 0, 0, g0_uu, NULL, NULL, g3_uu);CHKERRQ(ierr);
 	ierr = PetscDSSetExactSolution(ds, 0, quad_u, user);CHKERRQ(ierr);
-	ierr = DMAddBoundary(dm, DM_BC_ESSENTIAL, "wall", "marker", 0, 0, NULL, (void (*)(void)) quad_u, NULL, 1, &id, user);CHKERRQ(ierr);
- }
+    ierr = DMAddBoundary(dm, DM_BC_ESSENTIAL, "wall", label, 1, &id, 0, 0, NULL, (void (*)(void)) quad_u, NULL, user, NULL);CHKERRQ(ierr);
+  }
+
   PetscFunctionReturn(0);
 }
 
-static PetscErrorCode SetupAuxDM(DM dm, PetscFE feAux, AppCtx *user)
-{
-  DM             dmAux, coordDM;
-  PetscErrorCode ierr;
+// static PetscErrorCode SetupAuxDM(DM dm, PetscFE feAux, AppCtx *user)
+// {
+//   DM             dmAux, coordDM;
+//   PetscErrorCode ierr;
+//
+//   PetscFunctionBegin;
+//   /* MUST call DMGetCoordinateDM() in order to get p4est setup if present */
+//   ierr = DMGetCoordinateDM(dm, &coordDM);CHKERRQ(ierr);
+//   ierr = DMClone(dm, &dmAux);CHKERRQ(ierr);
+//   ierr = PetscObjectCompose((PetscObject) dm, "dmAux", (PetscObject) dmAux);CHKERRQ(ierr);
+//   ierr = DMSetCoordinateDM(dmAux, coordDM);CHKERRQ(ierr);
+//   ierr = DMSetField(dmAux, 0, NULL, (PetscObject) feAux);CHKERRQ(ierr);
+//   ierr = DMCreateDS(dmAux);CHKERRQ(ierr);
+//   ierr = SetupMaterial(dm, dmAux, user);CHKERRQ(ierr);
+//   ierr = DMDestroy(&dmAux);CHKERRQ(ierr);
+//   PetscFunctionReturn(0);
+// }
 
-  PetscFunctionBegin;
-  /* MUST call DMGetCoordinateDM() in order to get p4est setup if present */
-  ierr = DMGetCoordinateDM(dm, &coordDM);CHKERRQ(ierr);
-  ierr = DMClone(dm, &dmAux);CHKERRQ(ierr);
-  ierr = PetscObjectCompose((PetscObject) dm, "dmAux", (PetscObject) dmAux);CHKERRQ(ierr);
-  ierr = DMSetCoordinateDM(dmAux, coordDM);CHKERRQ(ierr);
-  ierr = DMSetField(dmAux, 0, NULL, (PetscObject) feAux);CHKERRQ(ierr);
-  ierr = DMCreateDS(dmAux);CHKERRQ(ierr);
-  ierr = SetupMaterial(dm, dmAux, user);CHKERRQ(ierr);
-  ierr = DMDestroy(&dmAux);CHKERRQ(ierr);
-  PetscFunctionReturn(0);
-}
 
 static PetscErrorCode SetupDiscretization(DM dm, const char name[], PetscErrorCode (*setup)(DM, AppCtx *), AppCtx *user)
 {
@@ -274,80 +276,50 @@ int main(int argc, char **argv)
 	return ierr;
 }
 
-/*TEST
-test:
-  # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
-  suffix: 2d_p1_conv
-  requires: triangle
-  args: -potential_petscspace_degree 1 -snes_convergence_estimate -convest_num_refine 3
-test:
-  # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
-  suffix: 2d_p2_conv
-  requires: triangle
-  args: -potential_petscspace_degree 2 -snes_convergence_estimate -convest_num_refine 2
-test:
-  # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
-  suffix: 2d_p3_conv
-  requires: triangle
-  args: -potential_petscspace_degree 3 -snes_convergence_estimate -convest_num_refine 2
-test:
-  # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
-  suffix: 2d_q1_trig_conv
-  args: -exact_trig -dm_plex_box_simplex 0 -potential_petscspace_degree 1 -snes_convergence_estimate -convest_num_refine 2
-test:
-  # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
-  suffix: 2d_q2_trig_conv
-  args: -exact_trig -dm_plex_box_simplex 0 -potential_petscspace_degree 2 -snes_convergence_estimate -convest_num_refine 2
-test:
-  # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
-  suffix: 2d_q3_trig_conv
-  args: -exact_trig -dm_plex_box_simplex 0 -potential_petscspace_degree 3 -snes_convergence_estimate -convest_num_refine 2
-test:
-  # Using -convest_num_refine 3 we get L_2 convergence rate:
-  suffix: 3d_p1_conv
-  requires: ctetgen
-  args: -dm_plex_box_dim 3 -dm_refine 1 -potential_petscspace_degree 1 -snes_convergence_estimate -convest_num_refine 1
-test:
-  # Using -dm_refine 1 -convest_num_refine 3 we get L_2 convergence rate:
-  suffix: 3d_p2_conv
-  requires: ctetgen
-  args: -dm_plex_box_dim 3 -dm_plex_box_faces 2,2,2 -potential_petscspace_degree 2 -snes_convergence_estimate -convest_num_refine 1
-test:
-  # Using -dm_refine 1 -convest_num_refine 3 we get L_2 convergence rate:
-  suffix: 3d_p3_conv
-  requires: ctetgen
-  args: -dm_plex_box_dim 3 -dm_plex_box_faces 2,2,2 -potential_petscspace_degree 3 -snes_convergence_estimate -convest_num_refine 1
-test:
-  # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
-  suffix: 3d_q1_trig_conv
-  args: -exact_trig -dm_plex_box_dim 3 -dm_plex_box_simplex 0 -dm_refine 1 -potential_petscspace_degree 1 -snes_convergence_estimate -convest_num_refine 1
-test:
-  # Using -dm_refine 2 -convest_num_refine 3 we get L_2 convergence rate:
-  suffix: 3d_q2_trig_conv
-  args: -exact_trig -dm_plex_box_dim 3 -dm_plex_box_simplex 0 -potential_petscspace_degree 2 -snes_convergence_estimate -convest_num_refine 1
-test:
-  # Using -dm_refine 1 -convest_num_refine 3 we get L_2 convergence rate:
-  suffix: 3d_q3_trig_conv
-  args: -exact_trig -dm_plex_box_dim 3 -dm_plex_box_simplex 0 -potential_petscspace_degree 3 -snes_convergence_estimate -convest_num_refine 1
-test:
-  suffix: 2d_p1_gmg_vcycle
-  requires: triangle
-  args: -potential_petscspace_degree 1 -dm_plex_box_faces 2,2 -dm_refine_hierarchy 3 \
-    -ksp_type cg -ksp_rtol 1e-10 -pc_type mg \
-    -mg_levels_ksp_max_it 1 \
-    -mg_levels_pc_type jacobi
-test:
-  suffix: 2d_p1_gmg_fcycle
-  requires: triangle
-  args: -potential_petscspace_degree 1 -dm_plex_box_faces 2,2 -dm_refine_hierarchy 3 \
-    -ksp_type cg -ksp_rtol 1e-10 -pc_type mg -pc_mg_type full \
-    -mg_levels_ksp_max_it 2 \
-    -mg_levels_pc_type jacobi
-test:
-  suffix: 2d_p1_gmg_vcycle_trig
-  requires: triangle
-  args: -exact_trig -potential_petscspace_degree 1 -dm_plex_box_faces 2,2 -dm_refine_hierarchy 3 \
-    -ksp_type cg -ksp_rtol 1e-10 -pc_type mg \
-    -mg_levels_ksp_max_it 1 \
-    -mg_levels_pc_type jacobi
-TEST*/
+/* Running Examples
+---- 2D, P1 Finite Elements, Quadratic Exact Soln ----
+
+ex1: PC - SOR, KSP - Richardson, 128x128(x2) Mesh
+-potential_petscspace_degree 1 -dm_plex_box_faces 16,16 -dm_refine_hierarchy 3 \
+-ksp_rtol 1e-10 -pc_type sor -ksp_type richardson -ksp_monitor_error \
+-ksp_max_it 500 -dm_view hdf5:sol_ex1.h5
+
+ex2: PC - SOR, KSP - CG, 128x128(x2) Mesh
+-potential_petscspace_degree 1 -dm_plex_box_faces 16,16 -dm_refine_hierarchy 3 \
+-ksp_rtol 1e-10 -pc_type sor -ksp_type cg -ksp_monitor_error \
+-ksp_max_it 500 -dm_view hdf5:sol_ex2.h5
+
+ex3: PC - MG, KSP - CG, 128x128(x2) Mesh, V-Cycle
+-potential_petscspace_degree 1 -dm_plex_box_faces 16,16 \
+-dm_refine_hierarchy 3 -ksp_type cg -ksp_rtol 1e-10 -pc_type mg \
+-mg_levels_ksp_max_it 1 -mg_levels_pc_type jacobi -dm_view hdf5:sol_ex3.h5
+
+ex4: PC - MG, KSP - CG, 128x128(x2) Mesh, F-Cycle
+-potential_petscspace_degree 1 -dm_plex_box_faces 16,16 -dm_refine_hierarchy 3 \
+  -ksp_type cg -ksp_rtol 1e-10 -pc_type mg -pc_mg_type full \
+  -mg_levels_ksp_max_it 2 -mg_levels_pc_type jacobi -dm_view hdf5:sol_ex4.h5
+
+
+---- 2D, P1 Finite Elements, Trigonometric Exact Soln ----
+
+ex1_trig: PC - SOR, KSP - Richardson, 128x128(x2) Mesh
+-potential_petscspace_degree 1 -trig -dm_plex_box_faces 16,16
+-dm_refine_hierarchy 3 -ksp_rtol 1e-10 -pc_type sor -ksp_type richardson \
+-ksp_monitor_error -ksp_max_it 500 -dm_view hdf5:sol_ex1_trig.h5
+
+ex2_trig: PC - SOR, KSP - CG, 128x128(x2) Mesh
+-potential_petscspace_degree 1 -trig -dm_plex_box_faces 16,16 \
+-dm_refine_hierarchy 3 -ksp_rtol 1e-10 -pc_type sor -ksp_type cg \
+-ksp_monitor_error -ksp_max_it 500 -dm_view hdf5:sol_ex2_trig.h5
+
+ex3_trig: PC - MG, KSP - CG, 128x128(x2) Mesh, V-Cycle
+-potential_petscspace_degree 1 -trig -dm_plex_box_faces 16,16\
+-dm_refine_hierarchy 3 -ksp_type cg -ksp_rtol 1e-10 -pc_type mg \
+-mg_levels_ksp_max_it 1 -mg_levels_pc_type jacobi -dm_view hdf5:sol_ex3_trig.h5
+
+ex4_trig: PC - MG, KSP - CG, 128x128(x2) Mesh, F-Cycle
+-potential_petscspace_degree 1 -trig -dm_plex_box_faces 16,16 \
+-dm_refine_hierarchy 3 -ksp_type cg -ksp_rtol 1e-10 -pc_type mg \
+-pc_mg_type full -mg_levels_ksp_max_it 2 -mg_levels_pc_type jacobi \
+-dm_view hdf5:sol_ex4_trig.h5
+*/
