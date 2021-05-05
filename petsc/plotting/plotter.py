@@ -48,9 +48,19 @@ X, Y = np.meshgrid(x, y)
 Z = 1 + X**2 + 2*Y**2
 
 plt.clf()
-plt.figure(figsize=(10,10),dpi=200)
+plt.figure(figsize=(12,10),dpi=200)
 plt.contourf( X, Y, Z , 100, cmap='coolwarm')
 plt.colorbar(ticks=[1.0,1.5,2.0,2.5,3,3.5,4.0]);
 plt.xlabel( 'x' ), plt.ylabel( 'y' )
 plt.title( '$u(x,y) = 1 + x^2 +2y^2$')
 plt.savefig("Quad_Exact.png")
+
+Z = np.sin(2*np.pi*X) + np.sin(2*np.pi*Y)
+
+plt.clf()
+plt.figure(figsize=(12,10),dpi=200)
+plt.contourf( X, Y, Z , 100, cmap='coolwarm')
+plt.colorbar(ticks=[-2.0,-1.0,0.0,1.0,2.0]);
+plt.xlabel( 'x' ), plt.ylabel( 'y' )
+plt.title( '$u(x,y) = sin(2 \pi x) + sin(2 \pi y)$')
+plt.savefig("Trig_Exact.png")
