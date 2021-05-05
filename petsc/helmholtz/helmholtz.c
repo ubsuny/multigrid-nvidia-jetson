@@ -242,6 +242,7 @@ int main(int argc, char **argv)
 	PetscDS        ds;
 	SNES           snes; /* Nonlinear solver */
 	Vec            u;    /* Solutions */
+	PetscInt       Nfields;
 	AppCtx         user; /* User-defined work context */
 	PetscErrorCode ierr;
 
@@ -259,14 +260,11 @@ int main(int argc, char **argv)
 	ierr = SNESSetFromOptions(snes);CHKERRQ(ierr);
 	ierr = DMSNESCheckFromOptions(snes, u);CHKERRQ(ierr);
 
-	/*Looking for field error*/
-	PetscInt Nfields;
 	ierr = DMGetDS(dm, &ds);CHKERRQ(ierr);
 	ierr = PetscDSGetNumFields(ds, &Nfields);CHKERRQ(ierr);
 	ierr = SNESSolve(snes, NULL, u);CHKERRQ(ierr);
 	ierr = SNESGetSolution(snes, &u);CHKERRQ(ierr);
 	ierr = VecViewFromOptions(u, NULL, "-potential_view");CHKERRQ(ierr);
-
 
 	/* Cleanup */
 	ierr = VecDestroy(&u);CHKERRQ(ierr);
