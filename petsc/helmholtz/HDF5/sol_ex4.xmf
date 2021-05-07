@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<!DOCTYPE Xdmf SYSTEM "Xdmf.dtd" [
+<!ENTITY HeavyData "sol_ex4.h5">
+]>
+
+<Xdmf>
+  <Domain Name="domain">
+    <DataItem Name="cells"
+              ItemType="Uniform"
+              Format="HDF"
+              NumberType="Float" Precision="8"
+              Dimensions="32768 3">
+      &HeavyData;:/viz/topology/cells
+    </DataItem>
+    <DataItem Name="vertices"
+              Format="HDF"
+              Dimensions="16641 2">
+      &HeavyData;:/geometry/vertices
+    </DataItem>
+    <!-- ============================================================ -->
+      <Grid Name="domain" GridType="Uniform">
+        <Topology
+           TopologyType="Triangle"
+           NumberOfElements="32768">
+          <DataItem Reference="XML">
+            /Xdmf/Domain/DataItem[@Name="cells"]
+          </DataItem>
+        </Topology>
+        <Geometry GeometryType="XY">
+          <DataItem Reference="XML">
+            /Xdmf/Domain/DataItem[@Name="vertices"]
+          </DataItem>
+        </Geometry>
+        <Attribute
+           Name="potential_potential"
+           Type="Scalar"
+           Center="Node">
+          <DataItem ItemType="HyperSlab"
+        	    Dimensions="1 16641 1"
+        	    Type="HyperSlab">
+            <DataItem
+               Dimensions="3 3"
+               Format="XML">
+              0 0 0
+              1 1 1
+              1 16641 1
+            </DataItem>
+            <DataItem
+               DataType="Float" Precision="8"
+               Dimensions="1 16641 1"
+               Format="HDF">
+              &HeavyData;:/vertex_fields/potential_potential
+            </DataItem>
+          </DataItem>
+        </Attribute>
+      </Grid>
+  </Domain>
+</Xdmf>

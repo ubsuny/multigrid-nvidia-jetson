@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  4 MAY 2021 16:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  6 MAY 2021 22:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -119,6 +119,14 @@ LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )
+(/usr/local/texlive/2020/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count187
+\float@exts=\toks21
+\float@box=\box47
+\@float@everytoks=\toks22
+\@floatcapt=\box48
+)
 (/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/biblatex.sty
 Package: biblatex 2019/12/01 v3.14 programmable bibliographies (PK/MW)
 
@@ -141,7 +149,7 @@ Package pdftexcmds Info: \pdfdraftmode found.
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count187
+\etb@tempcnta=\count188
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2019/11/29 v3.13 Key value format for package options (HO)
@@ -151,7 +159,7 @@ Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
 ))
 (/usr/local/texlive/2020/texmf-dist/tex/latex/logreq/logreq.sty
 Package: logreq 2010/08/04 v1.0 xml request logger
-\lrq@indent=\count188
+\lrq@indent=\count189
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/logreq/logreq.def
 File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
@@ -163,47 +171,47 @@ Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-\c@tabx@nest=\count189
-\c@listtotal=\count190
-\c@listcount=\count191
-\c@liststart=\count192
-\c@liststop=\count193
-\c@citecount=\count194
-\c@citetotal=\count195
-\c@multicitecount=\count196
-\c@multicitetotal=\count197
-\c@instcount=\count198
-\c@maxnames=\count199
-\c@minnames=\count266
-\c@maxitems=\count267
-\c@minitems=\count268
-\c@citecounter=\count269
-\c@maxcitecounter=\count270
-\c@savedcitecounter=\count271
-\c@uniquelist=\count272
-\c@uniquename=\count273
-\c@refsection=\count274
-\c@refsegment=\count275
-\c@maxextratitle=\count276
-\c@maxextratitleyear=\count277
-\c@maxextraname=\count278
-\c@maxextradate=\count279
-\c@maxextraalpha=\count280
-\c@abbrvpenalty=\count281
-\c@highnamepenalty=\count282
-\c@lownamepenalty=\count283
-\c@maxparens=\count284
-\c@parenlevel=\count285
-\blx@tempcnta=\count286
-\blx@tempcntb=\count287
-\blx@tempcntc=\count288
-\blx@maxsection=\count289
-\blx@maxsegment@0=\count290
-\blx@notetype=\count291
-\blx@parenlevel@text=\count292
-\blx@parenlevel@foot=\count293
-\blx@sectionciteorder@0=\count294
-\blx@entrysetcounter=\count295
+\c@tabx@nest=\count190
+\c@listtotal=\count191
+\c@listcount=\count192
+\c@liststart=\count193
+\c@liststop=\count194
+\c@citecount=\count195
+\c@citetotal=\count196
+\c@multicitecount=\count197
+\c@multicitetotal=\count198
+\c@instcount=\count199
+\c@maxnames=\count266
+\c@minnames=\count267
+\c@maxitems=\count268
+\c@minitems=\count269
+\c@citecounter=\count270
+\c@maxcitecounter=\count271
+\c@savedcitecounter=\count272
+\c@uniquelist=\count273
+\c@uniquename=\count274
+\c@refsection=\count275
+\c@refsegment=\count276
+\c@maxextratitle=\count277
+\c@maxextratitleyear=\count278
+\c@maxextraname=\count279
+\c@maxextradate=\count280
+\c@maxextraalpha=\count281
+\c@abbrvpenalty=\count282
+\c@highnamepenalty=\count283
+\c@lownamepenalty=\count284
+\c@maxparens=\count285
+\c@parenlevel=\count286
+\blx@tempcnta=\count287
+\blx@tempcntb=\count288
+\blx@tempcntc=\count289
+\blx@maxsection=\count290
+\blx@maxsegment@0=\count291
+\blx@notetype=\count292
+\blx@parenlevel@text=\count293
+\blx@parenlevel@foot=\count294
+\blx@sectionciteorder@0=\count295
+\blx@entrysetcounter=\count296
 \labelnumberwidth=\skip52
 \labelalphawidth=\skip53
 \biblabelsep=\skip54
@@ -215,9 +223,9 @@ Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 \blx@bcfin=\read2
 \blx@bcfout=\write3
 \blx@langwohyphens=\language86
-\c@mincomprange=\count296
-\c@maxcomprange=\count297
-\c@mincompwidth=\count298
+\c@mincomprange=\count297
+\c@maxcomprange=\count298
+\c@mincompwidth=\count299
 Package biblatex Info: Trying to load biblatex default data model...
 Package biblatex Info: ... file 'blx-dm.def' found.
 
@@ -226,74 +234,74 @@ File: blx-dm.def 2019/12/01 v3.14 biblatex localization (PK/MW)
 )
 Package biblatex Info: Trying to load biblatex custom data model...
 Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
-\c@afterword=\count299
-\c@savedafterword=\count300
-\c@annotator=\count301
-\c@savedannotator=\count302
-\c@author=\count303
-\c@savedauthor=\count304
-\c@bookauthor=\count305
-\c@savedbookauthor=\count306
-\c@commentator=\count307
-\c@savedcommentator=\count308
-\c@editor=\count309
-\c@savededitor=\count310
-\c@editora=\count311
-\c@savededitora=\count312
-\c@editorb=\count313
-\c@savededitorb=\count314
-\c@editorc=\count315
-\c@savededitorc=\count316
-\c@foreword=\count317
-\c@savedforeword=\count318
-\c@holder=\count319
-\c@savedholder=\count320
-\c@introduction=\count321
-\c@savedintroduction=\count322
-\c@namea=\count323
-\c@savednamea=\count324
-\c@nameb=\count325
-\c@savednameb=\count326
-\c@namec=\count327
-\c@savednamec=\count328
-\c@translator=\count329
-\c@savedtranslator=\count330
-\c@shortauthor=\count331
-\c@savedshortauthor=\count332
-\c@shorteditor=\count333
-\c@savedshorteditor=\count334
-\c@labelname=\count335
-\c@savedlabelname=\count336
-\c@institution=\count337
-\c@savedinstitution=\count338
-\c@lista=\count339
-\c@savedlista=\count340
-\c@listb=\count341
-\c@savedlistb=\count342
-\c@listc=\count343
-\c@savedlistc=\count344
-\c@listd=\count345
-\c@savedlistd=\count346
-\c@liste=\count347
-\c@savedliste=\count348
-\c@listf=\count349
-\c@savedlistf=\count350
-\c@location=\count351
-\c@savedlocation=\count352
-\c@organization=\count353
-\c@savedorganization=\count354
-\c@origlocation=\count355
-\c@savedoriglocation=\count356
-\c@origpublisher=\count357
-\c@savedorigpublisher=\count358
-\c@publisher=\count359
-\c@savedpublisher=\count360
-\c@language=\count361
-\c@savedlanguage=\count362
-\c@origlanguage=\count363
-\c@savedoriglanguage=\count364
-\c@pageref=\count365
-\c@savedpageref=\count366
+\c@afterword=\count300
+\c@savedafterword=\count301
+\c@annotator=\count302
+\c@savedannotator=\count303
+\c@author=\count304
+\c@savedauthor=\count305
+\c@bookauthor=\count306
+\c@savedbookauthor=\count307
+\c@commentator=\count308
+\c@savedcommentator=\count309
+\c@editor=\count310
+\c@savededitor=\count311
+\c@editora=\count312
+\c@savededitora=\count313
+\c@editorb=\count314
+\c@savededitorb=\count315
+\c@editorc=\count316
+\c@savededitorc=\count317
+\c@foreword=\count318
+\c@savedforeword=\count319
+\c@holder=\count320
+\c@savedholder=\count321
+\c@introduction=\count322
+\c@savedintroduction=\count323
+\c@namea=\count324
+\c@savednamea=\count325
+\c@nameb=\count326
+\c@savednameb=\count327
+\c@namec=\count328
+\c@savednamec=\count329
+\c@translator=\count330
+\c@savedtranslator=\count331
+\c@shortauthor=\count332
+\c@savedshortauthor=\count333
+\c@shorteditor=\count334
+\c@savedshorteditor=\count335
+\c@labelname=\count336
+\c@savedlabelname=\count337
+\c@institution=\count338
+\c@savedinstitution=\count339
+\c@lista=\count340
+\c@savedlista=\count341
+\c@listb=\count342
+\c@savedlistb=\count343
+\c@listc=\count344
+\c@savedlistc=\count345
+\c@listd=\count346
+\c@savedlistd=\count347
+\c@liste=\count348
+\c@savedliste=\count349
+\c@listf=\count350
+\c@savedlistf=\count351
+\c@location=\count352
+\c@savedlocation=\count353
+\c@organization=\count354
+\c@savedorganization=\count355
+\c@origlocation=\count356
+\c@savedoriglocation=\count357
+\c@origpublisher=\count358
+\c@savedorigpublisher=\count359
+\c@publisher=\count360
+\c@savedpublisher=\count361
+\c@language=\count362
+\c@savedlanguage=\count363
+\c@origlanguage=\count364
+\c@savedoriglanguage=\count365
+\c@pageref=\count366
+\c@savedpageref=\count367
 \shorthandwidth=\skip60
 \shortjournalwidth=\skip61
 \shortserieswidth=\skip62
@@ -329,19 +337,19 @@ Package biblatex Info: Trying to load generic definitions...
 Package biblatex Info: ... file 'biblatex.def' found.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/biblatex.def
 File: biblatex.def 2019/12/01 v3.14 biblatex compatibility (PK/MW)
-\c@textcitecount=\count367
-\c@textcitetotal=\count368
-\c@textcitemaxnames=\count369
-\c@biburlbigbreakpenalty=\count370
-\c@biburlbreakpenalty=\count371
-\c@biburlnumpenalty=\count372
-\c@biburlucpenalty=\count373
-\c@biburllcpenalty=\count374
+\c@textcitecount=\count368
+\c@textcitetotal=\count369
+\c@textcitemaxnames=\count370
+\c@biburlbigbreakpenalty=\count371
+\c@biburlbreakpenalty=\count372
+\c@biburlnumpenalty=\count373
+\c@biburlucpenalty=\count374
+\c@biburllcpenalty=\count375
 \biburlbigskip=\muskip18
 \biburlnumskip=\muskip19
 \biburlucskip=\muskip20
 \biburllcskip=\muskip21
-\c@smartand=\count375
+\c@smartand=\count376
 )
 Package biblatex Info: Trying to load bibliography style 'numeric'...
 Package biblatex Info: ... file 'numeric.bbx' found.
@@ -353,8 +361,8 @@ Package biblatex Info: ... file 'standard.bbx' found.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
 File: standard.bbx 2019/12/01 v3.14 biblatex bibliography style (PK/MW)
-\c@bbx:relatedcount=\count376
-\c@bbx:relatedtotal=\count377
+\c@bbx:relatedcount=\count377
+\c@bbx:relatedtotal=\count378
 ))
 Package biblatex Info: Trying to load citation style 'numeric'...
 Package biblatex Info: ... file 'numeric.cbx' found.
@@ -379,65 +387,65 @@ Package biblatex Info: ... file 'biblatex.cfg' found.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/biblatex.cfg
 File: biblatex.cfg 
 ))
-\c@theorem=\count378
-\c@proposition=\count379
+\c@theorem=\count379
+\c@proposition=\count380
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amscls/amsthm.sty
 Package: amsthm 2017/10/31 v2.20.4
-\thm@style=\toks21
-\thm@bodyfont=\toks22
-\thm@headfont=\toks23
-\thm@notefont=\toks24
-\thm@headpunct=\toks25
+\thm@style=\toks23
+\thm@bodyfont=\toks24
+\thm@headfont=\toks25
+\thm@notefont=\toks26
+\thm@headpunct=\toks27
 \thm@preskip=\skip74
 \thm@postskip=\skip75
 \thm@headsep=\skip76
-\dth@everypar=\toks26
+\dth@everypar=\toks28
 )
-\c@definition=\count380
+\c@definition=\count381
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/parskip/parskip.sty
 Package: parskip 2020-01-22 v2.0d non-zero parskip adjustments
 )
-\@quotelevel=\count381
-\@quotereset=\count382
+\@quotelevel=\count382
+\@quotereset=\count383
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count383
-\l__pdf_internal_box=\box47
+\l__kernel_color_stack_int=\count384
+\l__pdf_internal_box=\box49
 )
 (./HelmholtzMultigrid.aux)
 \openout1 = `HelmholtzMultigrid.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
 
 (/usr/local/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count384
+\scratchcounter=\count385
 \scratchdimen=\dimen146
-\scratchbox=\box48
-\nofMPsegments=\count385
-\nofMParguments=\count386
-\everyMPshowfont=\toks27
-\MPscratchCnt=\count387
+\scratchbox=\box50
+\nofMPsegments=\count386
+\nofMParguments=\count387
+\everyMPshowfont=\toks29
+\MPscratchCnt=\count388
 \MPscratchDim=\dimen147
-\MPnumerator=\count388
-\makeMPintoPDFobject=\count389
-\everyMPtoPDFconversion=\toks28
+\MPnumerator=\count389
+\makeMPintoPDFobject=\count390
+\everyMPtoPDFconversion=\toks30
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -465,27 +473,27 @@ Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'HelmholtzMultigrid.bbl' found.
 
 (./HelmholtzMultigrid.bbl)
-Package biblatex Info: Reference section=0 on input line 18.
-Package biblatex Info: Reference segment=0 on input line 18.
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 25
+Package biblatex Info: Reference section=0 on input line 19.
+Package biblatex Info: Reference segment=0 on input line 19.
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 26
 .
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 25.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 26.
 
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 25.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 26.
 
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (5.83394pt too wide) in paragraph at lines 36--37
+Overfull \hbox (5.83394pt too wide) in paragraph at lines 37--38
 []\OT1/cmr/m/n/10 For this project, we will ex-plore us-ing multi-grid meth-ods
  through the Portable,
  []
@@ -501,23 +509,23 @@ oject/Midsemester_Update/CG_Algorithm.png Graphic file (type png)
 ject/Midsemester_Update/CG_Algorithm.png>
 Package pdftex.def Info: /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506
 _CompPhys2/Final_Project/Midsemester_Update/CG_Algorithm.png  used on input lin
-e 56.
+e 57.
 (pdftex.def)             Requested size: 217.41393pt x 198.74402pt.
 
 [2]
 
-LaTeX Warning: Command \textohm invalid in math mode on input line 94.
+LaTeX Warning: Command \textohm invalid in math mode on input line 95.
 
 
-LaTeX Warning: Command \textohm invalid in math mode on input line 94.
+LaTeX Warning: Command \textohm invalid in math mode on input line 95.
 
 [3 </Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Proj
 ect/Midsemester_Update/CG_Algorithm.png>]
 
-LaTeX Warning: Command \textohm invalid in math mode on input line 96.
+LaTeX Warning: Command \textohm invalid in math mode on input line 97.
 
 
-LaTeX Warning: Command \textohm invalid in math mode on input line 96.
+LaTeX Warning: Command \textohm invalid in math mode on input line 97.
 
 [4]
 </Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Project
@@ -527,12 +535,12 @@ oject/Midsemester_Update/Domain.png Graphic file (type png)
 <use /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Pro
 ject/Midsemester_Update/Domain.png>
 Package pdftex.def Info: /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506
-_CompPhys2/Final_Project/Midsemester_Update/Domain.png  used on input line 154.
+_CompPhys2/Final_Project/Midsemester_Update/Domain.png  used on input line 155.
 
 (pdftex.def)             Requested size: 258.72859pt x 116.21104pt.
  [5] [6 </Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final
 _Project/Midsemester_Update/Domain.png>] [7]
-Overfull \hbox (10.3046pt too wide) detected at line 231
+Overfull \hbox (10.3046pt too wide) detected at line 232
 [] \OML/cmm/m/it/10 U[] [][] \OMS/cmsy/m/n/10 r\OML/cmm/m/it/10 ^^^[] \OMS/cmsy
 /m/n/10 ^^A r\OML/cmm/m/it/10 ^^^[] dx \OT1/cmr/m/n/10 + [] \OML/cmm/m/it/10 U[
 ] [][] ^^^[] ^^^[] dx \OT1/cmr/m/n/10 = [][](\OMS/cmsy/m/n/10 ^^@\OT1/cmr/m/n/1
@@ -541,19 +549,143 @@ Overfull \hbox (10.3046pt too wide) detected at line 231
 mr/m/n/10 2\OML/cmm/m/it/10 ; :::; N:
  []
 
-[8] [9] [10] (./HelmholtzMultigrid.aux)
+</Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Project
+/Final_Presentation/Images/Quad_Exact.png, id=45, 867.24pt x 722.7pt>
+File: /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Pr
+oject/Final_Presentation/Images/Quad_Exact.png Graphic file (type png)
+<use /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Pro
+ject/Final_Presentation/Images/Quad_Exact.png>
+Package pdftex.def Info: /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506
+_CompPhys2/Final_Project/Final_Presentation/Images/Quad_Exact.png  used on inpu
+t line 236.
+(pdftex.def)             Requested size: 433.61894pt x 361.3491pt.
+
+Overfull \hbox (88.61894pt too wide) in paragraph at lines 236--237
+ [] 
+ []
+
+[8]
+</Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Project
+/Final_Presentation/Images/Trig_Exact.png, id=49, 867.24pt x 722.7pt>
+File: /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Pr
+oject/Final_Presentation/Images/Trig_Exact.png Graphic file (type png)
+<use /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Pro
+ject/Final_Presentation/Images/Trig_Exact.png>
+Package pdftex.def Info: /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506
+_CompPhys2/Final_Project/Final_Presentation/Images/Trig_Exact.png  used on inpu
+t line 250.
+(pdftex.def)             Requested size: 433.61894pt x 361.3491pt.
+
+Overfull \hbox (88.61894pt too wide) in paragraph at lines 250--251
+ [] 
+ []
+
+[9 </Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Proj
+ect/Final_Presentation/Images/Quad_Exact.png>] [10 </Users/danny/Documents/UBuf
+falo/Semester_8_2021/PHY506_CompPhys2/Final_Project/Final_Presentation/Images/T
+rig_Exact.png>]
+</Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/results/multi
+grid-nvidia-jetson/petsc/plotting/Helmholtz_Subplots.png, id=58, 462.528pt x 34
+6.896pt>
+File: /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/results/
+multigrid-nvidia-jetson/petsc/plotting/Helmholtz_Subplots.png Graphic file (typ
+e png)
+<use /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/results/m
+ultigrid-nvidia-jetson/petsc/plotting/Helmholtz_Subplots.png>
+Package pdftex.def Info: /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506
+_CompPhys2/results/multigrid-nvidia-jetson/petsc/plotting/Helmholtz_Subplots.pn
+g  used on input line 287.
+(pdftex.def)             Requested size: 346.89514pt x 260.17136pt.
+
+Overfull \hbox (1.89514pt too wide) in paragraph at lines 287--288
+ [] 
+ []
+
+[11]
+</Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Project
+/Final_Presentation/Images/Quadratic_Solutions.png, id=62, 587.796pt x 477.4638
+pt>
+File: /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Pr
+oject/Final_Presentation/Images/Quadratic_Solutions.png Graphic file (type png)
+
+<use /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Pro
+ject/Final_Presentation/Images/Quadratic_Solutions.png>
+Package pdftex.def Info: /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506
+_CompPhys2/Final_Project/Final_Presentation/Images/Quadratic_Solutions.png  use
+d on input line 295.
+(pdftex.def)             Requested size: 352.68031pt x 286.48048pt.
+
+Overfull \hbox (7.68031pt too wide) in paragraph at lines 295--296
+ [] 
+ []
+
+[12 </Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/results/m
+ultigrid-nvidia-jetson/petsc/plotting/Helmholtz_Subplots.png>]
+</Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/results/multi
+grid-nvidia-jetson/petsc/plotting/Helmholtz_Trig_Subplots.png, id=67, 462.528pt
+ x 346.896pt>
+File: /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/results/
+multigrid-nvidia-jetson/petsc/plotting/Helmholtz_Trig_Subplots.png Graphic file
+ (type png)
+<use /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/results/m
+ultigrid-nvidia-jetson/petsc/plotting/Helmholtz_Trig_Subplots.png>
+Package pdftex.def Info: /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506
+_CompPhys2/results/multigrid-nvidia-jetson/petsc/plotting/Helmholtz_Trig_Subplo
+ts.png  used on input line 303.
+(pdftex.def)             Requested size: 346.89514pt x 260.17136pt.
+
+Overfull \hbox (1.89514pt too wide) in paragraph at lines 303--304
+ [] 
+ []
+
+[13 </Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Pro
+ject/Final_Presentation/Images/Quadratic_Solutions.png>]
+</Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Project
+/Final_Presentation/Images/Trigonometric_Solutions.png, id=73, 595.023pt x 477.
+4638pt>
+File: /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Pr
+oject/Final_Presentation/Images/Trigonometric_Solutions.png Graphic file (type 
+png)
+<use /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Pro
+ject/Final_Presentation/Images/Trigonometric_Solutions.png>
+Package pdftex.def Info: /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506
+_CompPhys2/Final_Project/Final_Presentation/Images/Trigonometric_Solutions.png 
+ used on input line 311.
+(pdftex.def)             Requested size: 357.01656pt x 286.48048pt.
+
+Overfull \hbox (12.01656pt too wide) in paragraph at lines 311--312
+ [] 
+ []
+
+[14 </Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/results/m
+ultigrid-nvidia-jetson/petsc/plotting/Helmholtz_Trig_Subplots.png>] [15 </Users
+/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Project/Final_
+Presentation/Images/Trigonometric_Solutions.png>]
+</Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Project
+/Final_Presentation/Images/MG_Cycles.png, id=82, 425.4294pt x 367.1316pt>
+File: /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Pr
+oject/Final_Presentation/Images/MG_Cycles.png Graphic file (type png)
+<use /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Pro
+ject/Final_Presentation/Images/MG_Cycles.png>
+Package pdftex.def Info: /Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506
+_CompPhys2/Final_Project/Final_Presentation/Images/MG_Cycles.png  used on input
+ line 337.
+(pdftex.def)             Requested size: 212.71417pt x 183.56534pt.
+ [16 </Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Pr
+oject/Final_Presentation/Images/MG_Cycles.png>] [17] [18] (./HelmholtzMultigrid
+.aux)
 Package logreq Info: Writing requests to 'HelmholtzMultigrid.run.xml'.
 \openout1 = `HelmholtzMultigrid.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 9563 strings out of 480608
- 174058 string characters out of 5903631
- 619353 words of memory out of 5000000
- 25350 multiletter control sequences out of 15000+600000
+ 9675 strings out of 480608
+ 179871 string characters out of 5903631
+ 619806 words of memory out of 5000000
+ 25449 multiletter control sequences out of 15000+600000
  541987 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,28n,45p,1235b,1273s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,28n,45p,1235b,1279s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 }</usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
 </usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
@@ -572,10 +704,10 @@ ve/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive
 2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2
 020/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texli
 ve/2020/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on HelmholtzMultigrid.pdf (10 pages, 277350 bytes).
+Output written on HelmholtzMultigrid.pdf (18 pages, 1565354 bytes).
 PDF statistics:
- 111 PDF objects out of 1000 (max. 8388607)
- 77 compressed objects within 1 object stream
+ 150 PDF objects out of 1000 (max. 8388607)
+ 94 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 46 words of extra memory for PDF output out of 10000 (max. 10000000)
 
