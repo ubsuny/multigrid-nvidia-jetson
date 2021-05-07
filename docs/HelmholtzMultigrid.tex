@@ -1,10 +1,11 @@
-
 \documentclass[]{article}
+%\documentclass[]{book}
 
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{latexsym}
 \usepackage{amsfonts} 
+\usepackage{float}
 \usepackage[backend=bibtex,sorting=none]{biblatex}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}{Proposition}[section]
@@ -230,6 +231,27 @@ Finally, plugging $f$ into the discretized variational form gives,
 \sum^N_{j=1} U_j \int_{\Omega} \nabla \phi_j \cdot \nabla \phi_i \, dx + \sum^N_{j=1} U_j \int_{\Omega} \phi_j \, \phi_i \, dx = \int_{\Omega} (-5 + x^2 + 2 y^2) \, \phi_i \, dx \;\;\; i = 1,2,...,N.
 \end{equation}
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.5]{/Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Project/Final_Presentation/Images/Quad_Exact.png}
+\end{center}
+\caption{Multigrid V-Cycle (top) and F-Cycle (bottom).}
+\label{QuadExact}
+\end{figure}
+
+\paragraph{Trigonometric Solution}
+
+A second exact solution is needed if bilinear finite elements ($Q_1, Q_2,...$) are to be used.  This exact solution also works for linear finite elements ($P_1, P_2, ...$) which will primarily be used here.  The exact solution is given by,
+\begin{equation}
+u_e(x,y) = Sin(2 \pi x) + Sin(2 \pi y).
+\end{equation}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.5]{/Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Project/Final_Presentation/Images/Trig_Exact.png}
+\end{center}
+\caption{Multigrid V-Cycle (top) and F-Cycle (bottom).}
+\label{TrigExact}
+\end{figure}
 
 
 \subsubsection{PETSc Formulation}
@@ -258,12 +280,70 @@ g_3 &= 1.0.
 \end{align}
 
 
-\section{Implementation}
+\section{Numerical Results}
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.75]{/Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/results/multigrid-nvidia-jetson/petsc/plotting/Helmholtz_Subplots.png}
+\end{center}
+\caption{Convergence results for quadratic MMS.  The top plots are residuals and errors for an SOR solver unaugmented (Richardson) and augmented with Krylov methods (Conjugate Gradients).  The bottom plots are residuals and errors for the Multigrid Method V-Cycle and F-Cycle.}
+\label{ConvQuad}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{/Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Project/Final_Presentation/Images/Quadratic_Solutions.png}
+\end{center}
+\caption{Solution visualization for quadratic MMS.}
+\label{VisQuad}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.75]{/Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/results/multigrid-nvidia-jetson/petsc/plotting/Helmholtz_Trig_Subplots.png}
+\end{center}
+\caption{Convergence results for trigonometric MMS.  The top plots are residuals and errors for an SOR solver unaugmented (Richardson) and augmented with Krylov methods (Conjugate Gradients).  The bottom plots are residuals and errors for the Multigrid Method V-Cycle and F-Cycle.}
+\label{ConvTrig}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{/Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Project/Final_Presentation/Images/Trigonometric_Solutions.png}
+\end{center}
+\caption{Solution visualization for trigonometric MMS.}
+\label{VisTrig}
+\end{figure}
+
+Eight numerical tests were run to determine the efficiency and accuracy of the multigrid methods in comparison to traditional krylov solvers.  The tests consisted of four tests with varying solvers  for two different exact solutions, described in the Method of Manufactured Solutions section.  The solvers chosen for the tests were:
+\begin{enumerate}
+\item Successive Over-Relaxation (SOR),
+\item SOR with Conjugate Gradients Krylov Solver,
+\item 2-level Multigrid V-Cycle using Conjugate Gradients and Jacobi Relaxation, and
+\item Multigrid F-Cycle using Conjugate Gradients and Jacobi Relaxation.
+\end{enumerate}
+
+The Richardson iterator is the most basic form of an iterator.  Therefore, SOR is the primary solver in the Richardson test.
+
+\subsection{Single Level Solves}
+
+If a purely local solver is used, such as SOR, the residual and error initially decrease as we accurately solve local problems.  However, to make more progress, we need increasingly more distant data which the local solver is not able to handle in any reasonable number of iterations.  Thus, as shown in figures \ref{ConvQuad} and \ref{ConvTrig}, there is a rapid slowdown and stagnation of the solve.  The solution is visualized for each solver in figure \ref{VisQuad}, which also shows that SOR does not achieve any semblance of the correct solution.  If SOR is augmented with a Krylov solver, say Conjugate Gradients, for problems of smaller sizes, we can achieve convergence.  However, if the problem size is increased (which can be achieved by increasing -dm\textunderscore refine\textunderscore hierarchy to say 6), we once again see a stagnation in the solve.  This is because Krylov solvers with local preconditioners asymptotically make no progress on a problem like this.
+
+\subsection{Multi Level Solves}
+
+To more efficiently solve this problem, the multigrid solver must use a coarse solver to eliminate error components not eliminated by the smoother.  Two multigrid cycles were chosen for testing, shown in figure \ref{MGCyc}; the V-Cycle and F-Cycle (also known as Full Multigrid).  The results for the two multigrid solves, shown in figures \ref{ConvQuad} and \ref{ConvTrig}, clearly display convergence rates far faster than that of the single-level solves.  The obtained solutions in figures \ref{VisQuad} and \ref{VisTrig} also show the accuracy of the multigrid solves, in comparison to the exact solutions in figures \ref{QuadExact} and \ref{TrigExact}.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.5]{/Users/danny/Documents/UBuffalo/Semester_8_2021/PHY506_CompPhys2/Final_Project/Final_Presentation/Images/MG_Cycles.png}
+\end{center}
+\caption{Multigrid V-Cycle (top) and F-Cycle (bottom).}
+\label{MGCyc}
+\end{figure}
 
 
 \subsection{GPU Code}
 
+As stated in the original project description, it is of interest to test the performance using GPUs.  PETSc is configured with either MPICH or OpenMPI for parallelization of the codes.  Additionally, OpenMPI can be configured with CUDA support which can be used to run PETSc codes on GPUs.  MPICH is not a "GPU-aware" implementation of MPI, therefore reconfiguring PETSc with MPICH and CUDA can cause errors.  The cleanest way to use CUDA in PETSc is to use OpenMPI through either a preinstalled library or by including "--download-openmpi --with-cuda" in the PETSc configure options.
 
 
 \printbibliography 

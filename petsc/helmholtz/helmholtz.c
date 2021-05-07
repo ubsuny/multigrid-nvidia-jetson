@@ -173,6 +173,7 @@ static PetscErrorCode SetupPrimalProblem(DM dm, AppCtx *user)
   ierr = DMGetDS(dm, &ds);CHKERRQ(ierr);
   ierr = DMGetLabel(dm, "marker", &label);CHKERRQ(ierr);
   if (user->trig) {
+	ierr = PetscPrintf(PETSC_COMM_WORLD,"Trig Exact Solution\n")
 	ierr = PetscDSSetResidual(ds, 0, f0_trig_u, f1_u);CHKERRQ(ierr);
     ierr = PetscDSSetJacobian(ds, 0, 0, g0_uu, NULL, NULL, g3_uu);CHKERRQ(ierr);
 	ierr = PetscDSSetExactSolution(ds, 0, trig_u, user);CHKERRQ(ierr);
@@ -280,46 +281,49 @@ int main(int argc, char **argv)
 ---- 2D, P1 Finite Elements, Quadratic Exact Soln ----
 
 ex1: PC - SOR, KSP - Richardson, 128x128(x2) Mesh
--potential_petscspace_degree 1 -dm_plex_box_faces 16,16 -dm_refine_hierarchy 3 \
+./helmholtz -potential_petscspace_degree 1 -dm_plex_box_faces 16,16 -dm_refine_hierarchy 3 \
 -ksp_rtol 1e-10 -pc_type sor -ksp_type richardson -ksp_monitor_error \
 -ksp_max_it 500 -dm_view hdf5:sol_ex1.h5
 
 ex2: PC - SOR, KSP - CG, 128x128(x2) Mesh
--potential_petscspace_degree 1 -dm_plex_box_faces 16,16 -dm_refine_hierarchy 3 \
+./helmholtz -potential_petscspace_degree 1 -dm_plex_box_faces 16,16 -dm_refine_hierarchy 3 \
 -ksp_rtol 1e-10 -pc_type sor -ksp_type cg -ksp_monitor_error \
 -ksp_max_it 500 -dm_view hdf5:sol_ex2.h5
 
 ex3: PC - MG, KSP - CG, 128x128(x2) Mesh, V-Cycle
--potential_petscspace_degree 1 -dm_plex_box_faces 16,16 \
+./helmholtz -potential_petscspace_degree 1 -dm_plex_box_faces 16,16 \
 -dm_refine_hierarchy 3 -ksp_type cg -ksp_rtol 1e-10 -pc_type mg \
--mg_levels_ksp_max_it 1 -mg_levels_pc_type jacobi -dm_view hdf5:sol_ex3.h5
+-mg_levels_ksp_max_it 1 -mg_levels_pc_type jacobi -ksp_monitor_error \
+-dm_view hdf5:sol_ex3.h5
 
 ex4: PC - MG, KSP - CG, 128x128(x2) Mesh, F-Cycle
--potential_petscspace_degree 1 -dm_plex_box_faces 16,16 -dm_refine_hierarchy 3 \
-  -ksp_type cg -ksp_rtol 1e-10 -pc_type mg -pc_mg_type full \
-  -mg_levels_ksp_max_it 2 -mg_levels_pc_type jacobi -dm_view hdf5:sol_ex4.h5
+./helmholtz -potential_petscspace_degree 1 -dm_plex_box_faces 16,16
+-dm_refine_hierarchy 3 -ksp_type cg -ksp_rtol 1e-10 -pc_type mg -pc_mg_type full \
+-mg_levels_ksp_max_it 2 -mg_levels_pc_type jacobi -ksp_monitor_error \
+-dm_view hdf5:sol_ex4.h5
 
 
 ---- 2D, P1 Finite Elements, Trigonometric Exact Soln ----
 
 ex1_trig: PC - SOR, KSP - Richardson, 128x128(x2) Mesh
--potential_petscspace_degree 1 -trig -dm_plex_box_faces 16,16
+./helmholtz -potential_petscspace_degree 1 -exact_trig -dm_plex_box_faces 16,16
 -dm_refine_hierarchy 3 -ksp_rtol 1e-10 -pc_type sor -ksp_type richardson \
 -ksp_monitor_error -ksp_max_it 500 -dm_view hdf5:sol_ex1_trig.h5
 
 ex2_trig: PC - SOR, KSP - CG, 128x128(x2) Mesh
--potential_petscspace_degree 1 -trig -dm_plex_box_faces 16,16 \
+./helmholtz -potential_petscspace_degree 1 -exact_trig -dm_plex_box_faces 16,16 \
 -dm_refine_hierarchy 3 -ksp_rtol 1e-10 -pc_type sor -ksp_type cg \
 -ksp_monitor_error -ksp_max_it 500 -dm_view hdf5:sol_ex2_trig.h5
 
 ex3_trig: PC - MG, KSP - CG, 128x128(x2) Mesh, V-Cycle
--potential_petscspace_degree 1 -trig -dm_plex_box_faces 16,16\
+./helmholtz -potential_petscspace_degree 1 -exact_trig -dm_plex_box_faces 16,16 \
 -dm_refine_hierarchy 3 -ksp_type cg -ksp_rtol 1e-10 -pc_type mg \
--mg_levels_ksp_max_it 1 -mg_levels_pc_type jacobi -dm_view hdf5:sol_ex3_trig.h5
+-mg_levels_ksp_max_it 1 -mg_levels_pc_type jacobi -ksp_monitor_error \
+-dm_view hdf5:sol_ex3_trig.h5
 
 ex4_trig: PC - MG, KSP - CG, 128x128(x2) Mesh, F-Cycle
--potential_petscspace_degree 1 -trig -dm_plex_box_faces 16,16 \
+./helmholtz -potential_petscspace_degree 1 -exact_trig -dm_plex_box_faces 16,16 \
 -dm_refine_hierarchy 3 -ksp_type cg -ksp_rtol 1e-10 -pc_type mg \
 -pc_mg_type full -mg_levels_ksp_max_it 2 -mg_levels_pc_type jacobi \
--dm_view hdf5:sol_ex4_trig.h5
+-ksp_monitor_error -dm_view hdf5:sol_ex4_trig.h5
 */
