@@ -18,7 +18,6 @@ Implementation of the multigrid solver for the "Good" helmholtz equation using P
  - --download-openmpi,
  - --download-triangle,
  - --with-cc=gcc,
- - --with-cuda,
  - --with-cxx=g++,
  - --with-debugging,
  - --with-fc=0,
